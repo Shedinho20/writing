@@ -1,0 +1,138 @@
+import {
+  CREATPROJECT,
+  ERROR,
+  MODAL,
+  MODALCLOSE,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  SIGN_SUCESS,
+  SIGN_FAIL,
+  SIGN_OUT,
+  DELETE,
+  NOTEUPDATED,
+  Action,
+} from "./constant";
+import { Project, EditorState, credentailsLogin } from "../../interface";
+import { Dispatch } from "react";
+
+export const CreatprojectAction = (project: Project) => {
+  return async (dispact: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
+    const firestore = getFirestore();
+    const details = getState().firebase.profile;
+    const auth = getState().firebase.auth.uid;
+    try {
+      await firestore.collection("projects").add({
+        ...project,
+        body: "",
+        authourName: details.firstName,
+        authourId: auth,
+        createdAt: new Date(),
+      });
+      dispact({
+        type: CREATPROJECT,
+        payload: project,
+      });
+    } catch (error) {
+      dispact({
+        type: ERROR,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const Modal = () => {
+  return {
+    type: MODAL,
+  };
+};
+
+export const Modalclose = () => {
+  return {
+    type: MODALCLOSE,
+  };
+};
+
+export const authAction = (credentails: credentailsLogin) => {
+  return async (dispatch: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
+    try {
+      const firebase = getFirebase();
+      await firebase.auth().signInWithEmailAndPassword(credentails.email, credentails.password);
+      dispatch({ type: LOGIN_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: error.message,
+      });
+    }
+  };
+};
+
+export const signUp = (newUser) => {
+  return async (dispatch: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    try {
+      const res = await firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password);
+      await firestore
+        .collection("users")
+        .doc(res.user.uid)
+        .set({
+          firstName: newUser.firstName,
+          lastName: newUser.Surname,
+          inititals: newUser.firstName[0] + newUser.Surname[0],
+          createdAt: new Date(),
+        });
+      dispatch({
+        type: SIGN_SUCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: SIGN_FAIL,
+        payload: error.message,
+      });
+    }
+  };
+};
+
+export const signOut = () => {
+  return async (dispatch: Dispatch<Action>, getstate: any, { getFirebase }: any) => {
+    const firebase = getFirebase();
+    try {
+      await firebase.auth().signOut();
+      dispatch({
+        type: SIGN_OUT,
+      });
+    } catch (error) {}
+  };
+};
+
+export const deleteNote = (id: string | number) => {
+  return async (dispatch: Dispatch<Action>, getstate: any, { getFirebase, getFirestore }: any) => {
+    const firestore = getFirestore();
+    try {
+      await firestore.collection("projects").doc(id).delete();
+      dispatch({
+        type: DELETE,
+        payload: id,
+      });
+    } catch (error) {}
+  };
+};
+
+export const updateNote = (user: EditorState) => {
+  const { projetctID, title, body } = user;
+  return async (dispatch: Dispatch<Action>, getstate: any, { getFirestore }: any) => {
+    const firestore = getFirestore();
+    try {
+      await firestore.collection("projects").doc(projetctID).update({
+        title,
+        body,
+      });
+      dispatch({
+        type: NOTEUPDATED,
+        payload: user,
+      });
+    } catch (error) {}
+  };
+};
