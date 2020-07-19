@@ -1,2 +1,2 @@
 # writing
-simple not pad for taking notes
+simple notepad for taking notes
