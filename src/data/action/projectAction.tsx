@@ -14,20 +14,28 @@ import {
 } from "./constant";
 import { Project, EditorState, credentailsLogin } from "../../interface";
 import { Dispatch } from "react";
+import uuid from "react-uuid";
 
 export const CreatprojectAction = (project: Project) => {
   return async (dispact: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
     const firestore = getFirestore();
-    const details = getState().firebase.profile;
+    // const firebase = getFirebase();
+    // const details = getState().firebase.profile;
     const auth = getState().firebase.auth.uid;
+
     try {
-      await firestore.collection("projects").add({
+      const key = uuid();
+      const note = {
         ...project,
-        body: "",
-        authourName: details.firstName,
-        authourId: auth,
         createdAt: new Date(),
-      });
+        id: key,
+      };
+      await firestore
+        .collection("users")
+        .doc(auth)
+        .update({
+          [`notes.${key}`]: note,
+        });
       dispact({
         type: CREATPROJECT,
         payload: project,
@@ -82,6 +90,8 @@ export const signUp = (newUser) => {
           lastName: newUser.Surname,
           inititals: newUser.firstName[0] + newUser.Surname[0],
           createdAt: new Date(),
+          friends: null,
+          notes: [],
         });
       dispatch({
         type: SIGN_SUCESS,
