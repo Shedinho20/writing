@@ -77,6 +77,10 @@ class Editor extends React.Component<EditorProps, EditorState> {
 const mapStateToProps = (state, ownprops) => {
   const id = ownprops.match.params.id;
   const projects = state.firestore.data.projects;
+  const user = state.firestore.data.User;
+  // console.log(state.firestore.data.User["pQGBlVdjgIG9RSVQxxtz"]);
+  const us = user ? state.firestore.data.User.dddddnjekbol446 : null;
+  console.log(us);
   const project = projects ? projects[id] : null;
   const projectID = project ? project.authourId : null;
   return {
@@ -94,5 +98,5 @@ const mapDispactToProps = (dispatch) => {
 };
 export default compose(
   connect(mapStateToProps, mapDispactToProps),
-  firestoreConnect([{ collection: "projects" }])
+  firestoreConnect([{ collection: "projects" }, { collection: "User" }])
 )(Editor);

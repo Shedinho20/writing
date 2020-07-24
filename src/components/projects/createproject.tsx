@@ -11,6 +11,7 @@ interface Props {
 class Createproject extends React.Component<Props> {
   state = {
     title: "",
+    body: "",
   };
 
   handleSubmit = (e: any) => {
