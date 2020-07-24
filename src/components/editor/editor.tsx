@@ -3,7 +3,7 @@ import ReactQuill from "react-quill";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { updateNote } from "../../data/action/projectAction";
+import { updateNote } from "../../data/action/project";
 import { debounce } from "lodash";
 import { Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
@@ -30,17 +30,34 @@ class Editor extends React.Component<EditorProps, EditorState> {
     body: "",
     projetctID: null,
   };
-  componentDidUpdate(prevProps: EditorProps) {
-    if (prevProps.project !== this.props.project) {
+
+  componentDidMount() {
+    const projects = this.props.project;
+    if (projects) {
       this.setState({
-        title: this.props.project.title,
-        body: this.props.project.body,
+        title: projects.title,
+        body: projects.body,
+        projetctID: this.props.match.params.id,
+      });
+    } else {
+      console.log("ss");
+      return null;
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.project !== this.props.project) {
+      const projects = this.props.project;
+      this.setState({
+        title: projects.title,
+        body: projects.body,
         projetctID: this.props.match.params.id,
       });
     }
   }
 
   handleChange = (e: any) => {
+    console.log(this.state);
     this.setState(
       { [e.target.id]: e.target.value },
       debounce(() => {
@@ -52,12 +69,13 @@ class Editor extends React.Component<EditorProps, EditorState> {
   handleChangeBody = debounce((val: any) => {
     this.setState({ body: val });
     this.props.updateChange(this.state);
+    console.log(this.state);
   }, 1000);
 
   render() {
-    const { project, auth, projectID } = this.props;
+    const { project, auth } = this.props;
     if (!auth.uid) return <Redirect to="/" />;
-    if (project && projectID === auth.uid) {
+    if (project) {
       return (
         <div>
           <input type="text" id="title" className="titleeditor" onChange={this.handleChange} value={this.state.title} />
@@ -75,17 +93,15 @@ class Editor extends React.Component<EditorProps, EditorState> {
 }
 
 const mapStateToProps = (state, ownprops) => {
+  const userId = state.firebase.auth.uid;
   const id = ownprops.match.params.id;
-  const projects = state.firestore.data.projects;
-  const user = state.firestore.data.User;
-  // console.log(state.firestore.data.User["pQGBlVdjgIG9RSVQxxtz"]);
-  const us = user ? state.firestore.data.User.dddddnjekbol446 : null;
-  console.log(us);
-  const project = projects ? projects[id] : null;
-  const projectID = project ? project.authourId : null;
+  const data = state.firestore.data.users;
+  const userNotes = data ? data[userId].notes : null;
+  const userNote = userNotes ? userNotes[id] : null;
+  console.log(userNote);
   return {
-    project,
-    projectID,
+    project: userNote,
+    projectID: id,
     auth: state.firebase.auth,
     isUpdated: state.projectData.noteupdated,
   };

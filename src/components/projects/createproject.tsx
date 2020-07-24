@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CreatprojectAction, Modalclose } from "../../data/action/projectAction";
+import { CreatprojectAction, Modalclose } from "../../data/action/project";
 import { connect } from "react-redux";
 import { Project } from "../../interface";
 

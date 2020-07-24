@@ -20,13 +20,19 @@ class Projectlist extends React.Component<Props, {}> {
 
     if (!this.props.auth.uid) return <Redirect to="/" />;
 
+    let usedprojects = projects ? Object.values(projects) : null;
+    usedprojects = usedprojects
+      ? usedprojects.sort((a, b) => {
+          return b.createdAt - a.createdAt;
+        })
+      : null;
     return (
       <div>
         <div className="search"></div>
         <div className="projectlist">
           <Addproject />
-          {projects &&
-            projects.map((project: any) => {
+          {usedprojects &&
+            usedprojects.map((project: any) => {
               return <Project key={project.id} project={project} />;
             })}
         </div>
@@ -38,15 +44,10 @@ class Projectlist extends React.Component<Props, {}> {
 const mapStateToProps = (state: any) => {
   const userId = state.firebase.auth.uid;
   const data = state.firestore.data.users;
-  let user = data ? data[userId].notes : null;
-  user = user ? Object.values(user) : null;
-  user = user
-    ? user.sort((a, b) => {
-        return b.createdAt - a.createdAt;
-      })
-    : null;
+  let user = data ? data[userId] : null;
+  let userData = user ? user.notes : null;
   return {
-    projects: user,
+    projects: userData,
     auth: state.firebase.auth,
   };
 };

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { signUp } from "../../data/action/projectAction";
+import { signUp } from "../../data/action/project";
 import { Redirect } from "react-router-dom";
 
 interface Props {

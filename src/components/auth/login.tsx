@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { authAction } from "../../data/action/projectAction";
+import { authAction } from "../../data/action/project";
 import { Redirect } from "react-router-dom";
 import { credentailsLogin } from "../../interface";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Modal } from "../../data/action/projectAction";
+import { Modal } from "../../data/action/project";
 
 const Addproject = ({ Modal }) => {
   return (
