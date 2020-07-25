@@ -15,12 +15,14 @@ interface EditorProps {
   updateChange: (note) => void;
   auth: any;
   projectID: number | string;
+  userId: number | string;
   isUpdated: boolean;
 }
 export interface NewNote {
   projetctID: string | number;
   title: string | number;
   body: any;
+  userID: number | string;
 }
 interface EditorState {}
 
@@ -29,6 +31,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
     title: "",
     body: "",
     projetctID: null,
+    userID: null,
   };
 
   componentDidMount() {
@@ -38,9 +41,9 @@ class Editor extends React.Component<EditorProps, EditorState> {
         title: projects.title,
         body: projects.body,
         projetctID: this.props.match.params.id,
+        userID: this.props.userId,
       });
     } else {
-      console.log("ss");
       return null;
     }
   }
@@ -52,12 +55,12 @@ class Editor extends React.Component<EditorProps, EditorState> {
         title: projects.title,
         body: projects.body,
         projetctID: this.props.match.params.id,
+        userID: this.props.userId,
       });
     }
   }
 
   handleChange = (e: any) => {
-    console.log(this.state);
     this.setState(
       { [e.target.id]: e.target.value },
       debounce(() => {
@@ -69,7 +72,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
   handleChangeBody = debounce((val: any) => {
     this.setState({ body: val });
     this.props.updateChange(this.state);
-    console.log(this.state);
   }, 1000);
 
   render() {
@@ -98,12 +100,12 @@ const mapStateToProps = (state, ownprops) => {
   const data = state.firestore.data.users;
   const userNotes = data ? data[userId].notes : null;
   const userNote = userNotes ? userNotes[id] : null;
-  console.log(userNote);
   return {
     project: userNote,
     projectID: id,
     auth: state.firebase.auth,
     isUpdated: state.projectData.noteupdated,
+    userId,
   };
 };
 

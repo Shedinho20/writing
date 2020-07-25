@@ -17,10 +17,8 @@ import { Dispatch } from "react";
 import uuid from "react-uuid";
 
 export const CreatprojectAction = (project: Project) => {
-  return async (dispact: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
+  return async (dispact: Dispatch<Action>, getState: any, { getFirestore }: any) => {
     const firestore = getFirestore();
-    // const firebase = getFirebase();
-    // const details = getState().firebase.profile;
     const auth = getState().firebase.auth.uid;
 
     try {
@@ -118,10 +116,19 @@ export const signOut = () => {
 };
 
 export const deleteNote = (id: string | number) => {
-  return async (dispatch: Dispatch<Action>, getstate: any, { getFirebase, getFirestore }: any) => {
+  return async (dispatch: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
     const firestore = getFirestore();
+    const firebase = getFirebase();
+    console.log(id);
+    const auth = getState().firebase.auth.uid;
+    console.log(auth);
     try {
-      await firestore.collection("projects").doc(id).delete();
+      await firestore
+        .collection("users")
+        .doc(auth)
+        .update({
+          [`notes.${id}`]: firebase.firestore.FieldValue.delete(),
+        });
       dispatch({
         type: DELETE,
         payload: id,
@@ -131,14 +138,22 @@ export const deleteNote = (id: string | number) => {
 };
 
 export const updateNote = (user: EditorState) => {
-  const { projetctID, title, body } = user;
-  return async (dispatch: Dispatch<Action>, getstate: any, { getFirestore }: any) => {
+  const { projetctID, title, body, userID } = user;
+  return async (dispatch: Dispatch<Action>, getState, { getFirestore }: any) => {
     const firestore = getFirestore();
     try {
-      await firestore.collection("projects").doc(projetctID).update({
+      const note = {
         title,
         body,
-      });
+        createdAt: new Date(),
+        id: projetctID,
+      };
+      await firestore
+        .collection("users")
+        .doc(userID)
+        .update({
+          [`notes.${projetctID}`]: note,
+        });
       dispatch({
         type: NOTEUPDATED,
         payload: user,

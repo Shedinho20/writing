@@ -6,6 +6,7 @@ export interface EditorState {
   projetctID: string | number;
   title: string | number;
   body: any;
+  userID: string | number;
 }
 
 export interface credentailsLogin {
