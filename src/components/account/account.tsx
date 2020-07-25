@@ -10,7 +10,7 @@ const Account = ({ signout, auth, UserInititals, projects }) => {
   if (!auth.uid) return <Redirect to="/" />;
   if (UserInititals && projects) {
     const date = moment(UserInititals.createdAt.toDate()).format("LL");
-    const NumProjects = numProjects(projects, auth.uid).length;
+    const NumProjects = Object.values(UserInititals.notes).length;
     return (
       <div>
         <div className="account">
@@ -30,9 +30,9 @@ const Account = ({ signout, auth, UserInititals, projects }) => {
   }
 };
 
-const numProjects = (projects, auth) => {
-  return projects.filter((project) => project.authourId === auth);
-};
+// const numProjects = (projects, auth) => {
+//   return projects.filter((project) => project.authourId === auth);
+// };
 
 const mapDispactToProps = (dispact) => {
   return {
