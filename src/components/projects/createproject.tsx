@@ -3,6 +3,8 @@ import { CreatprojectAction, Modalclose } from "../../data/action/project";
 import { connect } from "react-redux";
 import { Project } from "../../interface";
 import Loader from "react-loader-spinner";
+import { motion, AnimatePresence } from "framer-motion";
+import { containerCreateProject } from "../motion";
 
 interface Props {
   createProject: (project: Project) => {};
@@ -39,19 +41,21 @@ class Createproject extends React.Component<Props> {
   );
   render() {
     return (
-      <div className="modal">
-        <div className="form">
-          <form id="form-login" onSubmit={this.handleSubmit}>
-            {this.state.updated ? (
-              this.note()
-            ) : (
-              <div className="addNewNote">
-                <Loader type="Oval" color="#32343a" height={50} width={50} timeout={30000} />
-              </div>
-            )}
-          </form>
-        </div>
-      </div>
+      <AnimatePresence>
+        <motion.div variants={containerCreateProject} initial="hidden" animate="visible" className="modal">
+          <div className="form">
+            <form id="form-login" onSubmit={this.handleSubmit}>
+              {this.state.updated ? (
+                this.note()
+              ) : (
+                <div className="addNewNote">
+                  <Loader type="Oval" color="#32343a" height={50} width={50} timeout={30000} />
+                </div>
+              )}
+            </form>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     );
   }
 }

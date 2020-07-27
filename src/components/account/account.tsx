@@ -5,6 +5,8 @@ import { signOut } from "../../data/action/project";
 import { Redirect } from "react-router-dom";
 import { firestoreConnect } from "react-redux-firebase";
 import moment from "moment";
+import { motion } from "framer-motion";
+import { container } from "../motion";
 
 const Account = ({ signout, auth, UserInititals, projects }) => {
   if (!auth.uid) return <Redirect to="/" />;
@@ -12,18 +14,23 @@ const Account = ({ signout, auth, UserInititals, projects }) => {
     const date = moment(UserInititals.createdAt.toDate()).format("LL");
     const NumProjects = Object.values(UserInititals.notes).length;
     return (
-      <div>
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        exit={{ opacity: 0, transition: { delay: 0.25, duration: 0.25 } }}
+      >
         <div className="account">
           <h1>{`${UserInititals.firstName} ${UserInititals.lastName}`}</h1>
           <div className="userIn">{UserInititals.inititals}</div>
           <h3>{auth.email}</h3>
           <h4>{`Writing user since ${date}`}</h4>
           <h5>{`You have written ${NumProjects} notes`}</h5>
-          <button className="btn" id="btn-signout2" onClick={signout}>
+          <motion.button className="btn" id="btn-signout2" onClick={signout} whileHover={{ scale: 1.1 }}>
             Sign-out
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
     );
   } else {
     return null;

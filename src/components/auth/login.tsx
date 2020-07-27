@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { authAction } from "../../data/action/project";
 import { Redirect } from "react-router-dom";
 import { credentailsLogin } from "../../interface";
+import { motion } from "framer-motion";
+import { container } from "../motion";
 
 interface Props {
   signIn: (cred: credentailsLogin) => void;
@@ -28,7 +30,13 @@ class Login extends React.Component<Props> {
     if (auth.uid) return <Redirect to="/Projectlist" />;
 
     return (
-      <div className="form">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        exit={{ opacity: 0, transition: { delay: 0.25, duration: 0.25 } }}
+        className="form"
+      >
         <form id="form-login" onSubmit={this.handleSubmit}>
           <h2>LOGIN</h2>
           <input type="email" id="email" placeholder="E-mail" onChange={this.handleChange} />
@@ -40,7 +48,7 @@ class Login extends React.Component<Props> {
             {authError ? <p>{authError}</p> : null}
           </div>
         </form>
-      </div>
+      </motion.div>
     );
   }
 }

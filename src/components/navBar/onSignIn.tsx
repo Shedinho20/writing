@@ -3,13 +3,18 @@ import { NavLink as Link } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
+import { motion } from "framer-motion";
 
 interface Props {}
 
 const Onsignin = ({ user }) => {
   if (user) {
     return (
-      <div>
+      <motion.div
+        initial={{ x: "-100vw", opacity: "0.5" }}
+        animate={{ x: "0", opacity: "1" }}
+        transition={{ duration: 1, type: "tween" }}
+      >
         <Link to="/account/imani" id="link" activeClassName="active">
           <div className="intiail">
             <div id="intiail">{user.inititals}</div>
@@ -22,7 +27,7 @@ const Onsignin = ({ user }) => {
             <h3>Notes</h3>
           </div>
         </Link>
-      </div>
+      </motion.div>
     );
   } else {
     return null;

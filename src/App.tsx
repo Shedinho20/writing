@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import Navbar from "./components/navBar/nav";
 import Home from "./components/home/home";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import Login from "./components/auth/login";
 import Signin from "./components/auth/Signin";
 import Projectlist from "./components/projects/projecList";
@@ -11,22 +11,26 @@ import { connect } from "react-redux";
 import Editor from "./components/editor/editor";
 import Account from "./components/account/account";
 import Loader from "react-loader-spinner";
+import { AnimatePresence } from "framer-motion";
 
-function App({ addNote, isLoaded }) {
+function App({ addNote, isLoaded, auth }) {
+  const location = useLocation();
   if (isLoaded) {
     return (
       <React.Fragment>
         <Navbar />
         {addNote ? <Createproject /> : null}
         <div className="writingContent">
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/siginin" component={Signin} />
-            <Route path="/Projectlist" component={Projectlist} />
-            <Route path="/editor/:id" component={Editor} />
-            <Route path="/account/:name" component={Account} />
-          </Switch>
+          <AnimatePresence>
+            <Switch location={location} key={location.key}>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/siginin" component={Signin} />
+              <Route path="/Projectlist" component={Projectlist} />
+              <Route path="/editor/:id" component={Editor} />
+              <Route path="/account/:name" component={Account} />
+            </Switch>
+          </AnimatePresence>
         </div>
       </React.Fragment>
     );
@@ -42,6 +46,7 @@ const mapStateToProps = (state: any) => {
   return {
     addNote: state.projectData.addNote,
     isLoaded: state.firebase.auth["isLoaded"],
+    auth: state.firebase.auth,
   };
 };
 export default connect(mapStateToProps)(App);

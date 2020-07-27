@@ -5,6 +5,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import moment from "moment";
+
 export interface Props {}
 
 const Project = ({ project, delNote }) => {

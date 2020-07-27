@@ -7,6 +7,9 @@ import { updateNote } from "../../data/action/project";
 import { debounce } from "lodash";
 import { Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
+import { motion } from "framer-motion";
+import { container } from "../motion";
+
 // import { updater } from "../../data/reducer/rootReducer";
 
 interface EditorProps {
@@ -79,10 +82,15 @@ class Editor extends React.Component<EditorProps, EditorState> {
     if (!auth.uid) return <Redirect to="/" />;
     if (project) {
       return (
-        <div>
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="visible"
+          exit={{ opacity: 0, transition: { delay: 0.5, duration: 0.5 } }}
+        >
           <input type="text" id="title" className="titleeditor" onChange={this.handleChange} value={this.state.title} />
           <ReactQuill value={this.state.body} onChange={this.handleChangeBody} id="editor" />
-        </div>
+        </motion.div>
       );
     } else {
       return (
