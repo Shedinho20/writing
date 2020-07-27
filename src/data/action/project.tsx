@@ -16,11 +16,15 @@ import { Project, EditorState, credentailsLogin } from "../../interface";
 import { Dispatch } from "react";
 import uuid from "react-uuid";
 
+interface Firestor {
+  getFirestore: () => {};
+}
+
 export const CreatprojectAction = (project: Project) => {
-  return async (dispact: Dispatch<Action>, getState: any, { getFirestore }: any) => {
+  return async (dispact: Dispatch<Action>, getState: any, { getFirestore }) => {
     const firestore = getFirestore();
     const auth = getState().firebase.auth.uid;
-
+    console.log(getFirestore);
     try {
       const key = uuid();
       const note = {
@@ -119,9 +123,7 @@ export const deleteNote = (id: string | number) => {
   return async (dispatch: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
     const firestore = getFirestore();
     const firebase = getFirebase();
-    console.log(id);
     const auth = getState().firebase.auth.uid;
-    console.log(auth);
     try {
       await firestore
         .collection("users")

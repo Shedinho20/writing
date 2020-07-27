@@ -12,7 +12,7 @@ import Loader from "react-loader-spinner";
 interface EditorProps {
   match: any;
   project: any;
-  updateChange: (note) => void;
+  updateChange: (note: NewNote) => void;
   auth: any;
   projectID: number | string;
   userId: number | string;

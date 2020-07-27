@@ -2,7 +2,7 @@ import { CREATPROJECT, ERROR, MODAL, MODALCLOSE, DELETE, NOTEUPDATED, ProjectRed
 
 const initialstate = {
   addNote: false,
-  noteupdated: false,
+  noteupdated: true,
 };
 
 const projectReducer = (state = initialstate, action: ProjectReducer) => {
@@ -10,7 +10,6 @@ const projectReducer = (state = initialstate, action: ProjectReducer) => {
     case CREATPROJECT:
       return { ...state, addNote: false };
     case ERROR:
-      console.log(action.payload);
       return state;
     case MODAL:
       return { ...state, addNote: true };
@@ -19,7 +18,7 @@ const projectReducer = (state = initialstate, action: ProjectReducer) => {
     case DELETE:
       return { ...state };
     case NOTEUPDATED:
-      return { ...state, noteupdated: true };
+      return { ...state, noteupdated: false };
     default:
       return state;
   }
