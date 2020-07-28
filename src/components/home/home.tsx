@@ -12,7 +12,7 @@ const Home = ({ auth }) => {
       variants={container}
       initial="hidden"
       animate="visible"
-      exit={{ opacity: 0, transition: { delay: 0.25, duration: 0.25 } }}
+      exit={{ opacity: 0, scale: 0, transition: { delay: 0.25, duration: 0.25 } }}
       className="home"
     >
       <h1>Writing...</h1>

@@ -18,7 +18,7 @@ const Account = ({ signout, auth, UserInititals, projects }) => {
         variants={container}
         initial="hidden"
         animate="visible"
-        exit={{ opacity: 0, transition: { delay: 0.25, duration: 0.25 } }}
+        exit={{ opacity: 0, scale: 0, transition: { delay: 0.25, duration: 0.25 } }}
       >
         <div className="account">
           <h1>{`${UserInititals.firstName} ${UserInititals.lastName}`}</h1>

@@ -86,7 +86,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
           variants={container}
           initial="hidden"
           animate="visible"
-          exit={{ opacity: 0, transition: { delay: 0.5, duration: 0.5 } }}
+          exit={{ opacity: 0, scale: 0, transition: { delay: 0.5, duration: 0.5 } }}
         >
           <input type="text" id="title" className="titleeditor" onChange={this.handleChange} value={this.state.title} />
           <ReactQuill value={this.state.body} onChange={this.handleChangeBody} id="editor" />

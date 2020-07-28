@@ -21,8 +21,8 @@ function App({ addNote, isLoaded, auth }) {
         <Navbar />
         {addNote ? <Createproject /> : null}
         <div className="writingContent">
-          <AnimatePresence>
-            <Switch location={location} key={location.key}>
+          <AnimatePresence exitBeforeEnter>
+            <Switch location={location}>
               <Route path="/" exact component={Home} />
               <Route path="/login" component={Login} />
               <Route path="/siginin" component={Signin} />

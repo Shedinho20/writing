@@ -34,7 +34,7 @@ class Login extends React.Component<Props> {
         variants={container}
         initial="hidden"
         animate="visible"
-        exit={{ opacity: 0, transition: { delay: 0.25, duration: 0.25 } }}
+        exit={{ opacity: 0, scale: 0, transition: { delay: 0.25, duration: 0.25 } }}
         className="form"
       >
         <form id="form-login" onSubmit={this.handleSubmit}>
