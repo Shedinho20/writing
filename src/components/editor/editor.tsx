@@ -34,19 +34,18 @@ class Editor extends React.Component<EditorProps, EditorState> {
     body: "",
     projetctID: null,
     userID: null,
-    noNote: null,
+    noNote: true,
   };
 
   componentDidMount() {
     const projects = this.props.project;
-    console.log(projects);
     if (projects) {
       this.setState({
         title: projects.title,
         body: projects.body,
         projetctID: this.props.match.params.id,
         userID: this.props.userId,
-        noNote: null,
+        noNote: false,
       });
     } else {
       this.setState({ noNote: true });
@@ -62,6 +61,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
           body: projects.body,
           projetctID: this.props.match.params.id,
           userID: this.props.userId,
+          noNote: false,
         });
       } else {
         this.setState({ noNote: true });

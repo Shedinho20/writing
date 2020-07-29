@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 interface Props {}
 
 const Onsignin = ({ user }) => {
-  console.log(user);
   if (user) {
     return (
       <motion.div

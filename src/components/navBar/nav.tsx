@@ -8,7 +8,6 @@ import { firestoreConnect } from "react-redux-firebase";
 interface Props {}
 
 const Navbar = ({ auth }) => {
-  console.log(auth.uid);
   const links = auth.uid ? <Onsignin /> : <Onsignout />;
   return (
     <div className="nav">
