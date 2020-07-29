@@ -9,8 +9,7 @@ import { Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { container } from "../motion";
-
-// import { updater } from "../../data/reducer/rootReducer";
+import { Link } from "react-router-dom";
 
 interface EditorProps {
   match: any;
@@ -35,31 +34,38 @@ class Editor extends React.Component<EditorProps, EditorState> {
     body: "",
     projetctID: null,
     userID: null,
+    noNote: null,
   };
 
   componentDidMount() {
     const projects = this.props.project;
+    console.log(projects);
     if (projects) {
       this.setState({
         title: projects.title,
         body: projects.body,
         projetctID: this.props.match.params.id,
         userID: this.props.userId,
+        noNote: null,
       });
     } else {
-      return null;
+      this.setState({ noNote: true });
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.project !== this.props.project) {
       const projects = this.props.project;
-      this.setState({
-        title: projects.title,
-        body: projects.body,
-        projetctID: this.props.match.params.id,
-        userID: this.props.userId,
-      });
+      if (projects) {
+        this.setState({
+          title: projects.title,
+          body: projects.body,
+          projetctID: this.props.match.params.id,
+          userID: this.props.userId,
+        });
+      } else {
+        this.setState({ noNote: true });
+      }
     }
   }
 
@@ -77,9 +83,23 @@ class Editor extends React.Component<EditorProps, EditorState> {
     this.props.updateChange(this.state);
   }, 1000);
 
+  noNote = () => (
+    <div className="noNote">
+      <h4>
+        Note not found return to{" "}
+        <Link to={"/"} id="link" className="redirect">
+          home
+        </Link>
+      </h4>
+    </div>
+  );
+
   render() {
     const { project, auth } = this.props;
     if (!auth.uid) return <Redirect to="/" />;
+    if (this.state.noNote) {
+      return this.noNote();
+    }
     if (project) {
       return (
         <motion.div

@@ -29,6 +29,7 @@ function App({ addNote, isLoaded, auth }) {
               <Route path="/Projectlist" component={Projectlist} />
               <Route path="/editor/:id" component={Editor} />
               <Route path="/account/:name" component={Account} />
+              {/* <Route component={Home} /> */}
             </Switch>
           </AnimatePresence>
         </div>

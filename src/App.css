@@ -399,6 +399,20 @@ body {
   color: var(--textGrey);
   background-color: var(--mainPop);
 }
+.noNote {
+  width: 100%;
+  padding: 40vh 0;
+  text-align: center;
+}
+.redirect {
+  color: var(--mainGreen) !important;
+  font-weight: 900;
+}
+.noNote h4 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
 
 .addNewNote {
   padding: 5em;

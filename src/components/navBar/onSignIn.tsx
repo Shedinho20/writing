@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 interface Props {}
 
 const Onsignin = ({ user }) => {
+  console.log(user);
   if (user) {
     return (
       <motion.div
@@ -15,7 +16,7 @@ const Onsignin = ({ user }) => {
         animate={{ x: "0", opacity: "1" }}
         transition={{ duration: 1, type: "tween" }}
       >
-        <Link to="/account/imani" id="link" activeClassName="active">
+        <Link to={`/account/${user.firstName}${user.lastName}`} id="link" activeClassName="active">
           <div className="intiail">
             <div id="intiail">{user.inititals}</div>
             <h3>Account</h3>
