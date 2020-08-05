@@ -1,32 +1,55 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { authAction } from "../../data/action/project";
-import { Redirect } from "react-router-dom";
+import { authAction, resetEmail } from "../../data/action/project";
+import { Redirect, Link } from "react-router-dom";
 import { credentailsLogin } from "../../interface";
 import { motion } from "framer-motion";
 import { container } from "../motion";
 
 interface Props {
   signIn: (cred: credentailsLogin) => void;
+  resetPassword: (email: string) => void;
   authError: string;
   auth: any;
+  resetPasswordError: boolean;
 }
 
 class Login extends React.Component<Props> {
   state = {
     email: "",
     password: "",
+    // enterEmail: "",
+    isMessage: false,
   };
 
-  handleSubmit = (e: any) => {
+  handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     this.props.signIn(this.state);
   };
-  handleChange = (e: any) => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [e.target.id]: e.target.value });
+  };
+  passwordReset = () => {
+    if (this.state.email === "") {
+      this.setState({ isMessage: true });
+    } else {
+      this.setState({ isMessage: false });
+      this.props.resetPassword(this.state.email);
+    }
+  };
+
+  erroMessage = () => {
+    if (this.state.isMessage || this.props.resetPasswordError) {
+      return (
+        <div className="errorMesage">
+          <p>please enter a correct email address</p>
+        </div>
+      );
+    }
   };
   render() {
     const { authError, auth } = this.props;
+    console.log(auth);
     if (auth.uid) return <Redirect to="/Projectlist" />;
 
     return (
@@ -39,11 +62,34 @@ class Login extends React.Component<Props> {
       >
         <form id="form-login" onSubmit={this.handleSubmit}>
           <h2>LOGIN</h2>
-          <input type="email" id="email" placeholder="E-mail" onChange={this.handleChange} />
-          <input type="password" id="password" placeholder="Password" onChange={this.handleChange} />
+          <p className="noAccount">
+            Don't have an account?{" "}
+            <Link to="/siginin" id="link" className="noAccountSign">
+              Sign up
+            </Link>
+          </p>
+
+          <div>
+            <input
+              type="email"
+              id="email"
+              placeholder="E-mail"
+              onChange={this.handleChange}
+              className="emailLogin"
+              required
+            />
+            {this.erroMessage()}
+          </div>
+          <div>
+            <input type="password" id="password" placeholder="Password" onChange={this.handleChange} />
+            <p className="noAccountLost" onClick={this.passwordReset}>
+              Lost your password?
+            </p>
+          </div>
           <button className="btn" id="btn-login">
             Login
           </button>
+
           <div style={{ color: "red", marginTop: "2em", fontSize: "0.5rem" }}>
             {authError ? <p>{authError}</p> : null}
           </div>
@@ -56,12 +102,14 @@ const mapStateToProps = (state) => {
   return {
     authError: state.auth.auth_error,
     auth: state.firebase.auth,
+    resetPasswordError: state.auth.resetPasswordError,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     signIn: (creds: credentailsLogin) => dispatch(authAction(creds)),
+    resetPassword: (email) => dispatch(resetEmail(email)),
   };
 };
 

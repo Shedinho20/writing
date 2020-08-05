@@ -11,14 +11,14 @@ import {
   DELETE,
   NOTEUPDATED,
   Action,
+  RESETEMAILSENT,
+  ERRORESETEMAILSENT,
 } from "./constant";
-import { Project, EditorState, credentailsLogin } from "../../interface";
+import { Project, credentailsLogin } from "../../interface";
 import { Dispatch } from "react";
 import uuid from "react-uuid";
-
-interface Firestor {
-  getFirestore: () => {};
-}
+import { NewNote } from "../../components/editor/editor";
+import { auth } from "firebase";
 
 export const CreatprojectAction = (project: Project) => {
   return async (dispact: Dispatch<Action>, getState: any, { getFirestore }) => {
@@ -84,6 +84,7 @@ export const signUp = (newUser) => {
     const firestore = getFirestore();
     try {
       const res = await firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password);
+      await firebase.auth().currentUser.sendEmailVerification();
       await firestore
         .collection("users")
         .doc(res.user.uid)
@@ -95,6 +96,7 @@ export const signUp = (newUser) => {
           friends: null,
           notes: [],
         });
+
       dispatch({
         type: SIGN_SUCESS,
       });
@@ -131,6 +133,7 @@ export const deleteNote = (id: string | number) => {
         .update({
           [`notes.${id}`]: firebase.firestore.FieldValue.delete(),
         });
+
       dispatch({
         type: DELETE,
         payload: id,
@@ -139,7 +142,7 @@ export const deleteNote = (id: string | number) => {
   };
 };
 
-export const updateNote = (user: EditorState) => {
+export const updateNote = (user: NewNote) => {
   const { projetctID, title, body, userID } = user;
   return async (dispatch: Dispatch<Action>, getState, { getFirestore }: any) => {
     const firestore = getFirestore();
@@ -161,5 +164,25 @@ export const updateNote = (user: EditorState) => {
         payload: user,
       });
     } catch (error) {}
+  };
+};
+
+export const resetEmail = (email) => {
+  return async (dispatch: Dispatch<Action>, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+
+    try {
+      await firebase.auth().sendPasswordResetEmail(email);
+      dispatch({
+        type: RESETEMAILSENT,
+        payload: "Reset link sent to your email",
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: ERRORESETEMAILSENT,
+        payload: error,
+      });
+    }
   };
 };

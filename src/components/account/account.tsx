@@ -8,11 +8,11 @@ import moment from "moment";
 import { motion } from "framer-motion";
 import { container } from "../motion";
 
-const Account = ({ signout, auth, UserInititals, projects }) => {
-  if (!auth.uid) return <Redirect to="/" />;
-  if (UserInititals && projects) {
-    const date = moment(UserInititals.createdAt.toDate()).format("LL");
-    const NumProjects = Object.values(UserInititals.notes).length;
+const Account = ({ signout, auth, singleUser }) => {
+  if (!auth.uid && auth.emailVerified) return <Redirect to="/" />;
+  if (singleUser) {
+    const date = moment(singleUser.createdAt.toDate()).format("LL");
+    const NumProjects = Object.values(singleUser.notes).length;
     return (
       <motion.div
         variants={container}
@@ -21,8 +21,8 @@ const Account = ({ signout, auth, UserInititals, projects }) => {
         exit={{ opacity: 0, scale: 0, transition: { delay: 0.25, duration: 0.25 } }}
       >
         <div className="account">
-          <h1>{`${UserInititals.firstName} ${UserInititals.lastName}`}</h1>
-          <div className="userIn">{UserInititals.inititals}</div>
+          <h1>{`${singleUser.firstName} ${singleUser.lastName}`}</h1>
+          <div className="userIn">{singleUser.inititals}</div>
           <h3>{auth.email}</h3>
           <h4>{`Writing user since ${date}`}</h4>
           <h5>{`You have written ${NumProjects} notes`}</h5>
@@ -50,11 +50,10 @@ const mapDispactToProps = (dispact) => {
 const mapStateToProps = (state) => {
   const userID = state.firebase.auth.uid;
   const allUser = state.firestore.data.users;
-  const UserInititals = allUser ? allUser[userID] : null;
+  const singleUser = allUser ? allUser[userID] : null;
   return {
     auth: state.firebase.auth,
-    UserInititals,
-    projects: state.firestore.ordered.projects,
+    singleUser,
   };
 };
 

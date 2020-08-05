@@ -417,6 +417,32 @@ body {
 .addNewNote {
   padding: 5em;
 }
+
+.noAccount {
+  margin-top: 0.6em;
+  font-size: 0.8rem;
+  color: var(--mainGrey);
+}
+.noAccountLost {
+  font-size: 0.7rem;
+  color: var(--mainGreen);
+  cursor: pointer;
+}
+.noAccountSign {
+  color: var(--mainGreen) !important;
+}
+.noAccountLogin {
+  color: var(--mainPop) !important;
+}
+
+.errorMesage {
+  color: var(--mainGrey);
+  font-size: 0.7rem;
+  color: red;
+}
+.emailLogin {
+  margin-bottom: 0 !important;
+}
 @media (max-width: 700px) {
   html {
     font-size: 10px;

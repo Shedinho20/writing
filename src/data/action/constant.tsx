@@ -11,6 +11,8 @@ export const SIGN_FAIL = "SIGN_FAIL";
 export const SIGN_OUT = "SIGN_OUT";
 export const DELETE = "DELETE";
 export const NOTEUPDATED = "NOTEUPDATED";
+export const RESETEMAILSENT = "RESETEMAILSENT";
+export const ERRORESETEMAILSENT = "ERRORESETEMAILSENT";
 
 interface CREATPROJECT {
   type: typeof CREATPROJECT;
@@ -56,8 +58,23 @@ interface NOTEUPDATED {
   type: typeof NOTEUPDATED;
   payload?: any;
 }
+interface RESETEMAILSENT {
+  type: typeof RESETEMAILSENT;
+  payload?: any;
+}
+interface ERRORESETEMAILSENT {
+  type: typeof ERRORESETEMAILSENT;
+  payload?: any;
+}
 
 export type ProjectReducer = CREATPROJECT | MODAL | MODALCLOSE | ERROR | DELETE | NOTEUPDATED;
-export type Auth = LOGIN_FAIL | LOGIN_SUCCESS | SIGN_SUCESS | SIGN_FAIL | SIGN_OUT;
+export type Auth =
+  | LOGIN_FAIL
+  | LOGIN_SUCCESS
+  | SIGN_SUCESS
+  | SIGN_FAIL
+  | SIGN_OUT
+  | RESETEMAILSENT
+  | ERRORESETEMAILSENT;
 
 export type Action = ProjectReducer | Auth;

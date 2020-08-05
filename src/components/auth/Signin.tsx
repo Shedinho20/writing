@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { signUp } from "../../data/action/project";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { container } from "../motion";
 import { motion } from "framer-motion";
 
@@ -41,10 +41,23 @@ class Signin extends React.Component<Props> {
       >
         <form id="form-sigin" onSubmit={this.handleSubmit}>
           <h2>JOIN</h2>
+          <p className="noAccount">
+            Have an account?{" "}
+            <Link to="/login" id="link" className="noAccountLogin">
+              Login
+            </Link>
+          </p>
           <input type="text" id="firstName" placeholder="First Name" onChange={this.handleChange} required />
           <input type="text" id="Surname" placeholder="Name" onChange={this.handleChange} required />
           <input type="email" id="email" placeholder="E-mail" onChange={this.handleChange} required />
-          <input type="password" id="password" placeholder="Password" onChange={this.handleChange} required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            onChange={this.handleChange}
+            minLength={8}
+            required
+          />
           <button className="btn" id="btn-join">
             Join
           </button>

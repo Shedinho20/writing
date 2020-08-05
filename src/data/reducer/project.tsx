@@ -19,6 +19,7 @@ const projectReducer = (state = initialstate, action: ProjectReducer) => {
       return { ...state };
     case NOTEUPDATED:
       return { ...state, noteupdated: false };
+
     default:
       return state;
   }

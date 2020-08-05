@@ -15,6 +15,7 @@ import { AnimatePresence } from "framer-motion";
 
 function App({ addNote, isLoaded, auth }) {
   const location = useLocation();
+  console.log(auth);
   if (isLoaded) {
     return (
       <React.Fragment>
