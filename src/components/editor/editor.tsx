@@ -16,7 +16,6 @@ interface EditorProps {
   project: any;
   updateChange: (note: NewNote) => void;
   auth: any;
-  projectID: number | string;
   userId: number | string;
   isUpdated: boolean;
 }
@@ -130,7 +129,6 @@ const mapStateToProps = (state, ownprops) => {
   const userNote = userNotes ? userNotes[id] : null;
   return {
     project: userNote,
-    projectID: id,
     auth: state.firebase.auth,
     isUpdated: state.projectData.noteupdated,
     userId,

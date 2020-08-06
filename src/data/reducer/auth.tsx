@@ -11,7 +11,8 @@ import {
 
 const initialstate = {
   auth_error: null,
-  resetPasswordError: false,
+  resetPasswordError: null,
+  resetEmail: null,
 };
 
 const authReducer = (state = initialstate, action: Auth) => {
@@ -20,6 +21,8 @@ const authReducer = (state = initialstate, action: Auth) => {
       return {
         ...state,
         auth_error: action.payload,
+        resetPasswordError: false,
+        resetEmail: null,
       };
     case LOGIN_SUCCESS:
       return {
@@ -42,11 +45,18 @@ const authReducer = (state = initialstate, action: Auth) => {
         auth_error: null,
       };
     case RESETEMAILSENT:
-      return state;
+      return {
+        ...state,
+        resetEmail: action.payload,
+        resetPasswordError: false,
+        auth_error: null,
+      };
     case ERRORESETEMAILSENT:
       return {
         ...state,
-        resetPasswordError: true,
+        resetPasswordError: action.payload,
+        resetEmail: null,
+        auth_error: null,
       };
     default: {
       return state;

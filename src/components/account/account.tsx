@@ -9,8 +9,9 @@ import { motion } from "framer-motion";
 import { container } from "../motion";
 
 const Account = ({ signout, auth, singleUser }) => {
-  if (!auth.uid && auth.emailVerified) return <Redirect to="/" />;
-  if (singleUser) {
+  console.log(auth.emailVerified);
+  if (!auth.uid) return <Redirect to="/" />;
+  if (singleUser && auth.emailVerified) {
     const date = moment(singleUser.createdAt.toDate()).format("LL");
     const NumProjects = Object.values(singleUser.notes).length;
     return (
@@ -32,14 +33,13 @@ const Account = ({ signout, auth, singleUser }) => {
         </div>
       </motion.div>
     );
+  }
+  if (!auth.emailVerified) {
+    return <div className="account">verify your email please</div>;
   } else {
     return null;
   }
 };
-
-// const numProjects = (projects, auth) => {
-//   return projects.filter((project) => project.authourId === auth);
-// };
 
 const mapDispactToProps = (dispact) => {
   return {

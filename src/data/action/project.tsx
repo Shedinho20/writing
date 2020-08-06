@@ -18,7 +18,6 @@ import { Project, credentailsLogin } from "../../interface";
 import { Dispatch } from "react";
 import uuid from "react-uuid";
 import { NewNote } from "../../components/editor/editor";
-import { auth } from "firebase";
 
 export const CreatprojectAction = (project: Project) => {
   return async (dispact: Dispatch<Action>, getState: any, { getFirestore }) => {
@@ -72,7 +71,7 @@ export const authAction = (credentails: credentailsLogin) => {
     } catch (error) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: error.message,
+        payload: "The password or email is invalid.",
       });
     }
   };
@@ -179,10 +178,17 @@ export const resetEmail = (email) => {
       });
     } catch (error) {
       console.log(error);
-      dispatch({
-        type: ERRORESETEMAILSENT,
-        payload: error,
-      });
+      if (error.code === "auth/too-many-requests") {
+        dispatch({
+          type: ERRORESETEMAILSENT,
+          payload: "Account blocked. Try again later.",
+        });
+      } else {
+        dispatch({
+          type: ERRORESETEMAILSENT,
+          payload: "please enter a correct email address",
+        });
+      }
     }
   };
 };

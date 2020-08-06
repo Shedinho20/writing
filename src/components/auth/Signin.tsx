@@ -29,7 +29,7 @@ class Signin extends React.Component<Props> {
   render() {
     const { auth, authError } = this.props;
 
-    if (auth.uid) return <Redirect to="/Projectlist" />;
+    // if (auth.uid) return <Redirect to="/Projectlist" />;
 
     return (
       <motion.div

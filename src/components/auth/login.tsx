@@ -11,7 +11,8 @@ interface Props {
   resetPassword: (email: string) => void;
   authError: string;
   auth: any;
-  resetPasswordError: boolean;
+  resetPasswordError: string;
+  resetEmail: string;
 }
 
 class Login extends React.Component<Props> {
@@ -27,6 +28,7 @@ class Login extends React.Component<Props> {
     this.props.signIn(this.state);
   };
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ isMessage: false });
     this.setState({ [e.target.id]: e.target.value });
   };
   passwordReset = () => {
@@ -39,7 +41,7 @@ class Login extends React.Component<Props> {
   };
 
   erroMessage = () => {
-    if (this.state.isMessage || this.props.resetPasswordError) {
+    if (this.state.isMessage) {
       return (
         <div className="errorMesage">
           <p>please enter a correct email address</p>
@@ -78,10 +80,18 @@ class Login extends React.Component<Props> {
               className="emailLogin"
               required
             />
+            <p className="errorMesage noAccountSign">{this.props.resetEmail}</p>
+            <p className="errorMesage ">{this.props.resetPasswordError}</p>
             {this.erroMessage()}
           </div>
           <div>
-            <input type="password" id="password" placeholder="Password" onChange={this.handleChange} />
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              onChange={this.handleChange}
+              className="emailLogin"
+            />
             <p className="noAccountLost" onClick={this.passwordReset}>
               Lost your password?
             </p>
@@ -103,6 +113,7 @@ const mapStateToProps = (state) => {
     authError: state.auth.auth_error,
     auth: state.firebase.auth,
     resetPasswordError: state.auth.resetPasswordError,
+    resetEmail: state.auth.resetEmail,
   };
 };
 
