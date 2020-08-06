@@ -177,7 +177,6 @@ export const resetEmail = (email) => {
         payload: "Reset link sent to your email",
       });
     } catch (error) {
-      console.log(error);
       if (error.code === "auth/too-many-requests") {
         dispatch({
           type: ERRORESETEMAILSENT,
@@ -186,7 +185,7 @@ export const resetEmail = (email) => {
       } else {
         dispatch({
           type: ERRORESETEMAILSENT,
-          payload: "please enter a correct email address",
+          payload: "Please enter a correct email address",
         });
       }
     }
