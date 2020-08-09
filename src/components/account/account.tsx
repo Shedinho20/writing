@@ -7,6 +7,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import moment from "moment";
 import { motion } from "framer-motion";
 import { container } from "../motion";
+import Mybutton from "../MUI/button";
 
 const Account = ({ signout, auth, singleUser }) => {
   console.log(auth.emailVerified);
@@ -27,9 +28,9 @@ const Account = ({ signout, auth, singleUser }) => {
           <h3>{auth.email}</h3>
           <h4>{`Writing user since ${date}`}</h4>
           <h5>{`You have written ${NumProjects} notes`}</h5>
-          <motion.button className="btn" id="btn-signout2" onClick={signout} whileHover={{ scale: 1.1 }}>
-            Sign-out
-          </motion.button>
+          <motion.div onClick={signout} whileHover={{ scale: 1.1 }}>
+            <Mybutton name="Signout" type="button" />
+          </motion.div>
         </div>
       </motion.div>
     );

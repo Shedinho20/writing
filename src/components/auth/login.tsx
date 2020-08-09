@@ -5,6 +5,7 @@ import { Redirect, Link } from "react-router-dom";
 import { credentailsLogin } from "../../interface";
 import { motion } from "framer-motion";
 import { container } from "../motion";
+import Mybutton from "../MUI/button";
 
 interface Props {
   signIn: (cred: credentailsLogin) => void;
@@ -51,7 +52,6 @@ class Login extends React.Component<Props> {
   };
   render() {
     const { authError, auth } = this.props;
-    console.log(auth);
     if (auth.uid) return <Redirect to="/Projectlist" />;
 
     return (
@@ -96,9 +96,7 @@ class Login extends React.Component<Props> {
               Lost your password?
             </p>
           </div>
-          <button className="btn" id="btn-login">
-            Login
-          </button>
+          <Mybutton name="Login" type="submit" />
 
           <div style={{ color: "red", marginTop: "2em", fontSize: "0.5rem" }}>
             {authError ? <p>{authError}</p> : null}

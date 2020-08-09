@@ -4,6 +4,7 @@ import { signUp } from "../../data/action/project";
 import { Redirect, Link } from "react-router-dom";
 import { container } from "../motion";
 import { motion } from "framer-motion";
+import Mybutton from "../MUI/button";
 
 interface Props {
   signNewUser: (any) => void;
@@ -29,7 +30,7 @@ class Signin extends React.Component<Props> {
   render() {
     const { auth, authError } = this.props;
 
-    // if (auth.uid) return <Redirect to="/Projectlist" />;
+    if (auth.uid) return <Redirect to="/Projectlist" />;
 
     return (
       <motion.div
@@ -48,7 +49,7 @@ class Signin extends React.Component<Props> {
             </Link>
           </p>
           <input type="text" id="firstName" placeholder="First Name" onChange={this.handleChange} required />
-          <input type="text" id="Surname" placeholder="Name" onChange={this.handleChange} required />
+          <input type="text" id="Surname" placeholder="Surname" onChange={this.handleChange} required />
           <input type="email" id="email" placeholder="E-mail" onChange={this.handleChange} required />
           <input
             type="password"
@@ -58,9 +59,8 @@ class Signin extends React.Component<Props> {
             minLength={8}
             required
           />
-          <button className="btn" id="btn-join">
-            Join
-          </button>
+          <Mybutton name="Join" type="submit" color="primary" />
+
           {authError ? <p style={{ color: "red", marginTop: "2em", fontSize: "0.5rem" }}>{authError}</p> : null}
         </form>
       </motion.div>

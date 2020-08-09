@@ -10,6 +10,9 @@ import { createFirestoreInstance } from "redux-firestore";
 import firebase from "firebase/app";
 import store from "./data/store";
 
+import { ThemeProvider } from "@material-ui/core/styles";
+import { theme } from "./components/MUI/theme";
+
 const rrfConfig = {
   userProfile: "users",
   useFirestoreForProfile: true,
@@ -24,13 +27,15 @@ const rrfProps = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ReactReduxFirebaseProvider {...rrfProps}>
-        <Router>
-          <App />
-        </Router>
-      </ReactReduxFirebaseProvider>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <ReactReduxFirebaseProvider {...rrfProps}>
+          <Router>
+            <App />
+          </Router>
+        </ReactReduxFirebaseProvider>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

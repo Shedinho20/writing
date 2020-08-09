@@ -5,6 +5,7 @@ import { Project } from "../../interface";
 import Loader from "react-loader-spinner";
 import { motion, AnimatePresence } from "framer-motion";
 import { containerCreateProject } from "../motion";
+import Mybutton from "../MUI/button";
 
 interface Props {
   createProject: (project: Project) => {};
@@ -34,9 +35,7 @@ class Createproject extends React.Component<Props> {
       </div>
       <h2>ADD NOTE</h2>
       <input type="text" id="title" placeholder="Title" onChange={this.handleChange} required />
-      <button className="btn" id="btn-login">
-        ADD
-      </button>
+      <Mybutton name="Add" type="submit" />
     </>
   );
   render() {

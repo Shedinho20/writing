@@ -28,36 +28,7 @@ body {
   text-decoration: none;
   color: var(--textGrey);
 }
-.btn {
-  display: block;
-  padding: 1em 3em;
-  color: var(--mainWhite);
-  width: 180px;
-  border-radius: 5px;
-  border: none;
-  font-weight: 900;
-  cursor: pointer;
-}
 
-#btn-login {
-  background-color: var(--mainGreen);
-  margin-top: 2em;
-}
-#btn-signout {
-  background-color: var(--mainGreen);
-}
-
-#btn-login:hover {
-  background-color: #95dec3;
-}
-#btn-join {
-  background-color: var(--mainPop);
-  margin-top: 2em;
-}
-
-#btn-join:hover {
-  background-color: #938df9;
-}
 .nav {
   background-color: var(--mainGrey);
   height: 100vh;
@@ -387,10 +358,7 @@ body {
   border-radius: 10px;
   font-size: 1.2rem;
 }
-#btn-signout2 {
-  background-color: var(--mainGreen);
-  margin: 5em;
-}
+
 .active {
   color: var(--textGrey);
   background-color: var(--mainPop);
