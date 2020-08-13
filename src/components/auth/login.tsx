@@ -20,7 +20,6 @@ class Login extends React.Component<Props> {
   state = {
     email: "",
     password: "",
-    // enterEmail: "",
     isMessage: false,
   };
 

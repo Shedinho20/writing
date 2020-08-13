@@ -5,10 +5,11 @@ import { connect } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 
 import Navbar from "./components/navBar/nav";
-import Home from "./components/home/home";
+// import Home from "./components/home/home";
 import Loaderspinner from "./components/loader";
 
 const Signin = React.lazy(() => import("./components/auth/Signin"));
+const Home = React.lazy(() => import("./components/home/home"));
 const Login = React.lazy(() => import("./components/auth/login"));
 const Account = React.lazy(() => import("./components/account/account"));
 const Projectlist = React.lazy(() => import("./components/projects/projecList"));
