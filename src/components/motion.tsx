@@ -10,6 +10,18 @@ export const container = {
     },
   },
 };
+export const containerMessage = {
+  hidden: { opacity: 0, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "tween",
+      stiffness: 500,
+    },
+  },
+};
+
 export const containerCreateProject = {
   hidden: { y: "-100vh" },
   visible: {

@@ -3,18 +3,20 @@ import ReactQuill from "react-quill";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import { updateNote } from "../../data/action/project";
+import { updateNote, removeMessage } from "../../data/action/project";
 import { debounce } from "lodash";
 import { Redirect } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { container } from "../motion";
 import { Link } from "react-router-dom";
+import Mesaage from "../MUI/message";
 
 interface EditorProps {
   match: any;
   project: any;
   updateChange: (note: NewNote) => void;
+  removeMessage: () => void;
   auth: any;
   userId: number | string;
   isUpdated: boolean;
@@ -69,18 +71,29 @@ class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   handleChange = (e: any) => {
-    this.setState(
-      { [e.target.id]: e.target.value },
-      debounce(() => {
-        this.props.updateChange(this.state);
-      }, 1000)
-    );
+    this.setState({ [e.target.id]: e.target.value });
+  };
+
+  handleChangeDB = debounce((e) => {
+    this.props.updateChange(this.state);
+  }, 3000);
+
+  handleChanges = (e) => {
+    this.handleChange(e);
+    this.handleChangeDB(e);
   };
 
   handleChangeBody = debounce((val: any) => {
     this.setState({ body: val });
     this.props.updateChange(this.state);
-  }, 1000);
+  }, 3000);
+
+  message = () => {
+    setTimeout(() => {
+      this.props.removeMessage();
+    }, 1000);
+    return <Mesaage message="saved" color="primary" />;
+  };
 
   noNote = () => (
     <div className="noNote">
@@ -94,7 +107,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
   );
 
   render() {
-    const { project, auth } = this.props;
+    const { project, auth, isUpdated } = this.props;
     if (!auth.uid) return <Redirect to="/" />;
     if (this.state.noNote) {
       return this.noNote();
@@ -107,7 +120,14 @@ class Editor extends React.Component<EditorProps, EditorState> {
           animate="visible"
           exit={{ opacity: 0, scale: 0, transition: { delay: 0.5, duration: 0.5 } }}
         >
-          <input type="text" id="title" className="titleeditor" onChange={this.handleChange} value={this.state.title} />
+          {isUpdated ? this.message() : null}
+          <input
+            type="text"
+            id="title"
+            className="titleeditor"
+            onChange={this.handleChanges}
+            value={this.state.title}
+          />
           <ReactQuill value={this.state.body} onChange={this.handleChangeBody} id="editor" />
         </motion.div>
       );
@@ -138,6 +158,7 @@ const mapStateToProps = (state, ownprops) => {
 const mapDispactToProps = (dispatch) => {
   return {
     updateChange: (newNote: NewNote) => dispatch(updateNote(newNote)),
+    removeMessage: () => dispatch(removeMessage()),
   };
 };
 export default compose(

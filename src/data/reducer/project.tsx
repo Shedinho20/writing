@@ -1,8 +1,17 @@
-import { CREATPROJECT, ERROR, MODAL, MODALCLOSE, DELETE, NOTEUPDATED, ProjectReducer } from "../action/constant";
+import {
+  CREATPROJECT,
+  ERROR,
+  MODAL,
+  MODALCLOSE,
+  DELETE,
+  NOTEUPDATED,
+  ProjectReducer,
+  REMOVEMESSAGE,
+} from "../action/constant";
 
 const initialstate = {
   addNote: false,
-  noteupdated: true,
+  noteupdated: false,
 };
 
 const projectReducer = (state = initialstate, action: ProjectReducer) => {
@@ -18,6 +27,8 @@ const projectReducer = (state = initialstate, action: ProjectReducer) => {
     case DELETE:
       return { ...state };
     case NOTEUPDATED:
+      return { ...state, noteupdated: true };
+    case REMOVEMESSAGE:
       return { ...state, noteupdated: false };
 
     default:

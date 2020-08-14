@@ -13,6 +13,7 @@ import {
   Action,
   RESETEMAILSENT,
   ERRORESETEMAILSENT,
+  REMOVEMESSAGE,
 } from "./constant";
 import { Project, credentailsLogin } from "../../interface";
 import { Dispatch } from "react";
@@ -189,5 +190,13 @@ export const resetEmail = (email) => {
         });
       }
     }
+  };
+};
+
+export const removeMessage = () => {
+  return (dispact) => {
+    dispact({
+      type: REMOVEMESSAGE,
+    });
   };
 };
