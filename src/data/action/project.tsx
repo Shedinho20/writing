@@ -14,6 +14,7 @@ import {
   RESETEMAILSENT,
   ERRORESETEMAILSENT,
   REMOVEMESSAGE,
+  NODELETE,
 } from "./constant";
 import { Project, credentailsLogin } from "../../interface";
 import { Dispatch } from "react";
@@ -122,24 +123,33 @@ export const signOut = () => {
 };
 
 export const deleteNote = (id: string | number) => {
-  return async (dispatch: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
-    const firestore = getFirestore();
-    const firebase = getFirebase();
-    const auth = getState().firebase.auth.uid;
-    try {
-      await firestore
-        .collection("users")
-        .doc(auth)
-        .update({
-          [`notes.${id}`]: firebase.firestore.FieldValue.delete(),
-        });
+  // eslint-disable-next-line no-restricted-globals
+  if (confirm("Are you sure you want to delete this note")) {
+    return async (dispatch: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
+      const firestore = getFirestore();
+      const firebase = getFirebase();
+      const auth = getState().firebase.auth.uid;
+      try {
+        await firestore
+          .collection("users")
+          .doc(auth)
+          .update({
+            [`notes.${id}`]: firebase.firestore.FieldValue.delete(),
+          });
 
-      dispatch({
-        type: DELETE,
-        payload: id,
+        dispatch({
+          type: DELETE,
+          payload: id,
+        });
+      } catch (error) {}
+    };
+  } else {
+    return (dispact) => {
+      dispact({
+        type: NODELETE,
       });
-    } catch (error) {}
-  };
+    };
+  }
 };
 
 export const updateNote = (user: NewNote) => {

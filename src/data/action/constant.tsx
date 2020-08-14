@@ -10,6 +10,7 @@ export const SIGN_SUCESS = "SIGN_SUCESS";
 export const SIGN_FAIL = "SIGN_FAIL";
 export const SIGN_OUT = "SIGN_OUT";
 export const DELETE = "DELETE";
+export const NODELETE = "NODELETE";
 export const NOTEUPDATED = "NOTEUPDATED";
 export const RESETEMAILSENT = "RESETEMAILSENT";
 export const ERRORESETEMAILSENT = "ERRORESETEMAILSENT";
@@ -71,8 +72,20 @@ interface REMOVEMESSAGE {
   type: typeof REMOVEMESSAGE;
   payload?: any;
 }
+interface NODELETE {
+  type: typeof NODELETE;
+  payload?: any;
+}
 
-export type ProjectReducer = CREATPROJECT | MODAL | MODALCLOSE | ERROR | DELETE | NOTEUPDATED | REMOVEMESSAGE;
+export type ProjectReducer =
+  | CREATPROJECT
+  | MODAL
+  | MODALCLOSE
+  | ERROR
+  | DELETE
+  | NOTEUPDATED
+  | REMOVEMESSAGE
+  | NODELETE;
 export type Auth =
   | LOGIN_FAIL
   | LOGIN_SUCCESS
