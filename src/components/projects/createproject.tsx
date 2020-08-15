@@ -6,10 +6,12 @@ import Loader from "react-loader-spinner";
 import { motion, AnimatePresence } from "framer-motion";
 import { containerCreateProject } from "../motion";
 import Mybutton from "../MUI/button";
+import { Redirect } from "react-router-dom";
 
 interface Props {
   createProject: (project: Project) => {};
   Modal: () => void;
+  auth: boolean;
 }
 
 class Createproject extends React.Component<Props> {
@@ -64,5 +66,11 @@ const mapDispatchToProps = (dispatch) => {
     Modal: () => dispatch(Modalclose()),
   };
 };
-
-export default connect(null, mapDispatchToProps)(Createproject);
+const mapStateToProps = (state) => {
+  const aut = state.firebase.auth;
+  const auth = aut ? aut.emailVerified : null;
+  return {
+    auth,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Createproject);

@@ -11,7 +11,8 @@ import Mybutton from "../MUI/button";
 
 const Account = ({ signout, auth, singleUser }) => {
   console.log(auth.emailVerified);
-  if (!auth.uid) return <Redirect to="/" />;
+  if (!auth.uid || !auth.emailVerified) return <Redirect to="/" />;
+
   if (singleUser && auth.emailVerified) {
     const date = moment(singleUser.createdAt.toDate()).format("LL");
     const NumProjects = Object.values(singleUser.notes).length;
