@@ -9,6 +9,7 @@ import moment from "moment";
 export interface Props {}
 
 const Project = ({ project, delNote }) => {
+  console.log(project);
   return (
     <div className="project">
       <Link to={"/editor/" + project.id} id="link">

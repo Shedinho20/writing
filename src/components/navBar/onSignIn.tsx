@@ -15,18 +15,22 @@ const Onsignin = ({ user }) => {
         animate={{ x: "0", opacity: "1" }}
         transition={{ duration: 1, type: "tween" }}
       >
-        <Link to={`/account/${user.firstName}${user.lastName}`} id="link" activeClassName="active">
-          <div className="intiail">
-            <div id="intiail">{user.inititals}</div>
-            <h3>Account</h3>
-          </div>
-        </Link>
-        <Link to="/Projectlist" id="link" activeClassName="active">
-          <div className="notes">
-            <img src="/images/home.png" alt="" />
-            <h3>Notes</h3>
-          </div>
-        </Link>
+        <div className="intiail">
+          <div id="intiail">{user.inititals}</div>
+          <h3>
+            <Link to={`/account/${user.firstName}${user.lastName}`} id="link" activeClassName="active">
+              Account
+            </Link>
+          </h3>
+        </div>
+        <div className="notes">
+          <img src="/images/home.png" alt="" />
+          <h3>
+            <Link to="/Projectlist" id="link" activeClassName="active">
+              Notes
+            </Link>
+          </h3>
+        </div>
       </motion.div>
     );
   } else {

@@ -360,8 +360,7 @@ body {
 }
 
 .active {
-  color: var(--textGrey);
-  background-color: var(--mainPop);
+  color: var(--mainWhite) !important;
 }
 .noNote {
   width: 100%;
