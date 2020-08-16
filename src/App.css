@@ -41,7 +41,7 @@ body {
 .navInner {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 .nav #logo {
   width: 90%;
@@ -167,17 +167,6 @@ body {
   margin-right: 0.6em;
   padding: 1em;
   border-radius: 100%;
-}
-
-.notes {
-  display: flex;
-  align-items: baseline;
-  color: var(--mainWhite);
-}
-
-.notes img {
-  width: 30%;
-  margin-right: 0.6em;
 }
 
 .projectlist {

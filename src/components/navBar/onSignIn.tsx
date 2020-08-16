@@ -4,8 +4,14 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { motion } from "framer-motion";
+import HomeIcon from "@material-ui/icons/Home";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
-interface Props {}
+const notes = {
+  display: "flex",
+  alignItems: "baseline",
+  margin: "2em 0",
+};
 
 const Onsignin = ({ user, auth }) => {
   console.log(auth.emailVerified);
@@ -16,28 +22,22 @@ const Onsignin = ({ user, auth }) => {
         animate={{ x: "0", opacity: "1" }}
         transition={{ duration: 1, type: "tween" }}
       >
-        <div className="intiail">
-          <div id="intiail">{user.inititals}</div>
-          <h3>
-            <Link to={`/account/${user.firstName}${user.lastName}`} id="link" activeClassName="active">
-              Account
-            </Link>
-          </h3>
-        </div>
+        <Link to={`/account/${user.firstName}${user.lastName}`} id="link" activeClassName="active" style={notes}>
+          <AccountBoxIcon className="material-icons" style={{ fontSize: "28px", position: "relative", bottom: -7 }} />
+          <h3 style={{ fontSize: "1rem", marginLeft: ".8em" }}>Account</h3>
+        </Link>
+
         <Prompt
           when={!auth.emailVerified}
           message={(location) => {
             return location.pathname.startsWith("/account") ? `${location.pathname} requires a verified account` : true;
           }}
         />
-        <div className="notes">
-          <img src="/images/home.png" alt="" />
-          <h3>
-            <Link to="/Projectlist" id="link" activeClassName="active">
-              Notes
-            </Link>
-          </h3>
-        </div>
+
+        <Link to="/Projectlist" id="link" activeClassName="active" style={notes}>
+          <HomeIcon className="material-icons" style={{ fontSize: "28px", position: "relative", bottom: -7 }} />
+          <h3 style={{ fontSize: "1rem", marginLeft: ".8em" }}>Notes</h3>
+        </Link>
       </motion.div>
     );
   } else {
