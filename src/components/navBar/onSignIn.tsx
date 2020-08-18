@@ -6,25 +6,20 @@ import { firestoreConnect } from "react-redux-firebase";
 import { motion } from "framer-motion";
 import HomeIcon from "@material-ui/icons/Home";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
-
-const notes = {
-  display: "flex",
-  alignItems: "baseline",
-  margin: "2em 0",
-};
+import "./style/onsignin.scss";
 
 const Onsignin = ({ user, auth }) => {
-  console.log(auth.emailVerified);
   if (user) {
     return (
       <motion.div
         initial={{ x: "-100vw", opacity: "0.5" }}
         animate={{ x: "0", opacity: "1" }}
         transition={{ duration: 1, type: "tween" }}
+        className="onSignin"
       >
-        <Link to={`/account/${user.firstName}${user.lastName}`} id="link" activeClassName="active" style={notes}>
-          <AccountBoxIcon className="material-icons" style={{ fontSize: "28px", position: "relative", bottom: -7 }} />
-          <h3 style={{ fontSize: "1rem", marginLeft: ".8em" }}>Account</h3>
+        <Link to={`/account/${user.firstName}${user.lastName}`} id="link" activeClassName="active" className="link">
+          <AccountBoxIcon className="material-icons" />
+          <h3>Account</h3>
         </Link>
 
         <Prompt
@@ -34,9 +29,9 @@ const Onsignin = ({ user, auth }) => {
           }}
         />
 
-        <Link to="/Projectlist" id="link" activeClassName="active" style={notes}>
-          <HomeIcon className="material-icons" style={{ fontSize: "28px", position: "relative", bottom: -7 }} />
-          <h3 style={{ fontSize: "1rem", marginLeft: ".8em" }}>Notes</h3>
+        <Link to="/Projectlist" id="link" activeClassName="active" className="link">
+          <HomeIcon className="material-icons" />
+          <h3>Notes</h3>
         </Link>
       </motion.div>
     );

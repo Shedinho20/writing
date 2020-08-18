@@ -5,7 +5,7 @@ import { Redirect, Link } from "react-router-dom";
 import { container } from "../motion";
 import { motion } from "framer-motion";
 import Mybutton from "../MUI/button";
-
+import "./style/signin.scss";
 interface Props {
   signNewUser: (any) => void;
   auth: any;
@@ -38,13 +38,13 @@ class Signin extends React.Component<Props> {
         initial="hidden"
         animate="visible"
         exit={{ opacity: 0, transition: { delay: 0.25, duration: 0.25 } }}
-        className="form"
+        className="formsign"
       >
-        <form id="form-sigin" onSubmit={this.handleSubmit}>
+        <form className="formsign-body" onSubmit={this.handleSubmit}>
           <h2>JOIN</h2>
-          <p className="noAccount">
-            Have an account?{" "}
-            <Link to="/login" id="link" className="noAccountLogin">
+          <p>
+            Have an account?
+            <Link to="/login" id="link" className="link">
               Login
             </Link>
           </p>

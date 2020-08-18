@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { motion } from "framer-motion";
 import { container } from "../motion";
+import "./home.scss";
+
 interface Props {}
 
 const Home = ({ auth }) => {

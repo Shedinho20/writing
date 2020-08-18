@@ -8,9 +8,9 @@ import moment from "moment";
 import { motion } from "framer-motion";
 import { container } from "../motion";
 import Mybutton from "../MUI/button";
+import "./account.scss";
 
 const Account = ({ signout, auth, singleUser }) => {
-  console.log(auth.emailVerified);
   if (!auth.uid || !auth.emailVerified) return <Redirect to="/" />;
 
   if (singleUser && auth.emailVerified) {
@@ -18,21 +18,20 @@ const Account = ({ signout, auth, singleUser }) => {
     const NumProjects = Object.values(singleUser.notes).length;
     return (
       <motion.div
+        className="account"
         variants={container}
         initial="hidden"
         animate="visible"
         exit={{ opacity: 0, scale: 0, transition: { delay: 0.25, duration: 0.25 } }}
       >
-        <div className="account">
-          <h1>{`${singleUser.firstName} ${singleUser.lastName}`}</h1>
-          <div className="userIn">{singleUser.inititals}</div>
-          <h3>{auth.email}</h3>
-          <h4>{`Writing user since ${date}`}</h4>
-          <h5>{`You have written ${NumProjects} notes`}</h5>
-          <motion.div onClick={signout} whileHover={{ scale: 1.1 }}>
-            <Mybutton name="Signout" type="button" />
-          </motion.div>
-        </div>
+        <h1>{`${singleUser.firstName} ${singleUser.lastName}`}</h1>
+        <div className="userIn">{singleUser.inititals}</div>
+        <h3>{auth.email}</h3>
+        <h4>{`Writing user since ${date}`}</h4>
+        <h5>{`You have written ${NumProjects} notes`}</h5>
+        <motion.div onClick={signout} whileHover={{ scale: 1.1 }}>
+          <Mybutton name="Signout" type="button" />
+        </motion.div>
       </motion.div>
     );
   }

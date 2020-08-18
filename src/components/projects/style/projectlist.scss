@@ -1,0 +1,17 @@
+@import "../../styling/utility";
+
+.search {
+  height: 1px;
+}
+.projectlist {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 1em;
+  row-gap: 2em;
+  padding: 1em;
+  width: 100%;
+  overflow: hidden;
+  color: $textGrey;
+  margin: 2em 0;
+  align-items: center;
+}

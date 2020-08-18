@@ -1,0 +1,41 @@
+@import "../../styling/utility";
+@import "../../styling/form";
+
+.loginform {
+  @include flex(center, center, column);
+  &-body {
+    @include form-body(3em, 15vh);
+    input {
+      margin: 1em 0;
+      padding: 1em 0.5em;
+      width: 250px;
+      border: solid $mainGreen 1px;
+    }
+
+    h2 {
+      font-size: 3rem;
+      color: $mainGreen;
+      margin-bottom: 0.2em;
+    }
+
+    &:hover {
+      box-shadow: 60px 20px 100px #0000003e;
+    }
+  }
+
+  p {
+    margin-top: 0.6em;
+    font-size: 0.8rem;
+    color: $textGrey;
+  }
+
+  .link {
+    color: $mainGreen !important;
+    padding-left: 0.3em;
+  }
+
+  #errorMesage {
+    font-size: 0.7rem;
+    color: red;
+  }
+}

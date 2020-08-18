@@ -6,6 +6,7 @@ import { credentailsLogin } from "../../interface";
 import { motion } from "framer-motion";
 import { container } from "../motion";
 import Mybutton from "../MUI/button";
+import "./style/login.scss";
 
 interface Props {
   signIn: (cred: credentailsLogin) => void;
@@ -43,7 +44,7 @@ class Login extends React.Component<Props> {
   erroMessage = () => {
     if (this.state.isMessage) {
       return (
-        <div className="errorMesage">
+        <div id="errorMesage">
           <p>please enter a correct email address</p>
         </div>
       );
@@ -59,13 +60,13 @@ class Login extends React.Component<Props> {
         initial="hidden"
         animate="visible"
         exit={{ opacity: 0, scale: 0, transition: { delay: 0.25, duration: 0.25 } }}
-        className="form"
+        className="loginform"
       >
-        <form id="form-login" onSubmit={this.handleSubmit}>
+        <form className="loginform-body" onSubmit={this.handleSubmit}>
           <h2>LOGIN</h2>
-          <p className="noAccount">
-            Don't have an account?{" "}
-            <Link to="/siginin" id="link" className="noAccountSign">
+          <p>
+            Don't have an account?
+            <Link to="/siginin" id="link" className="link">
               Sign up
             </Link>
           </p>
@@ -79,7 +80,7 @@ class Login extends React.Component<Props> {
               className="emailLogin"
               required
             />
-            <p className="errorMesage noAccountSign">{this.props.resetEmail}</p>
+            <p className="errorMesage">{this.props.resetEmail}</p>
             <p className="errorMesage ">{this.props.resetPasswordError}</p>
             {this.erroMessage()}
           </div>
@@ -91,9 +92,7 @@ class Login extends React.Component<Props> {
               onChange={this.handleChange}
               className="emailLogin"
             />
-            <p className="noAccountLost" onClick={this.passwordReset}>
-              Lost your password?
-            </p>
+            <p onClick={this.passwordReset}>Lost your password?</p>
           </div>
           <Mybutton name="Login" type="submit" />
 

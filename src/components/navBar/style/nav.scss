@@ -1,0 +1,37 @@
+@import "../../styling/utility";
+
+.nav {
+  background-color: $mainGrey;
+  height: 100vh;
+  width: 35vw;
+  position: fixed;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  .navInner {
+    @include flex(flex-start, none, column);
+    img {
+      width: 70%;
+    }
+    .signOutIn {
+      margin-bottom: 28vh;
+      margin-top: 12vh;
+    }
+    .link {
+      display: flex;
+      align-items: baseline;
+      margin: 2em 0;
+
+      .material-icons {
+        font-size: 28px;
+        position: relative;
+        bottom: -7px;
+      }
+
+      h3 {
+        font-size: 1rem;
+        margin-left: 0.8em;
+      }
+    }
+  }
+}

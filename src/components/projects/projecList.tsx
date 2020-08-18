@@ -8,6 +8,8 @@ import Addproject from "./addProjectBTN";
 import { Redirect } from "react-router-dom";
 import { motion } from "framer-motion";
 import { container } from "../motion";
+import "./style/projectlist.scss";
+
 export interface Props {
   projects: any;
   auth: any;

@@ -1,0 +1,13 @@
+$mainGrey: #32343a;
+$mainWhite: #fff;
+$mainPop: #6c63ff;
+$mainGreen: #57b894;
+$secGrey: #63676f;
+$textGrey: #707070;
+
+@mixin flex($align, $justify, $direction) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+}

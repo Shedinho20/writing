@@ -1,0 +1,48 @@
+@import "../../styling/utility";
+@import "../../styling/form";
+
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+
+  .form {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &-body {
+      @include form-body(3em, 15vh);
+      input {
+        margin: 0.5em 0;
+        padding: 1em 0.5em;
+        width: 250px;
+        border: solid $mainGreen 1px;
+      }
+
+      h2 {
+        font-size: 3rem;
+        color: $mainGreen;
+        margin-bottom: 0.2em;
+      }
+    }
+  }
+
+  .cancle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: var(--mainGreen);
+    font-weight: 600;
+    cursor: pointer;
+  }
+}

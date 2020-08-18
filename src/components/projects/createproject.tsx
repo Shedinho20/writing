@@ -6,7 +6,7 @@ import Loader from "react-loader-spinner";
 import { motion, AnimatePresence } from "framer-motion";
 import { containerCreateProject } from "../motion";
 import Mybutton from "../MUI/button";
-import { Redirect } from "react-router-dom";
+import "./style/createproject.scss";
 
 interface Props {
   createProject: (project: Project) => {};
@@ -45,7 +45,7 @@ class Createproject extends React.Component<Props> {
       <AnimatePresence>
         <motion.div variants={containerCreateProject} initial="hidden" animate="visible" className="modal">
           <div className="form">
-            <form id="form-login" onSubmit={this.handleSubmit}>
+            <form className="form-body" onSubmit={this.handleSubmit}>
               {this.state.updated ? (
                 this.note()
               ) : (

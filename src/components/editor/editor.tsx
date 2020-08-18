@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { container } from "../motion";
 import { Link } from "react-router-dom";
 import Mesaage from "../MUI/message";
+import "./editor .scss";
 
 interface EditorProps {
   match: any;
@@ -115,6 +116,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
     if (project) {
       return (
         <motion.div
+          className="editor"
           variants={container}
           initial="hidden"
           animate="visible"
@@ -128,7 +130,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
             onChange={this.handleChanges}
             value={this.state.title}
           />
-          <ReactQuill value={this.state.body} onChange={this.handleChangeBody} id="editor" />
+          <ReactQuill value={this.state.body} onChange={this.handleChangeBody} className="editor-notepad" />
         </motion.div>
       );
     } else {

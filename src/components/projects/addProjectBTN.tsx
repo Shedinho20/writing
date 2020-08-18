@@ -1,14 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Modal } from "../../data/action/project";
-
+import NoteAddIcon from "@material-ui/icons/NoteAdd";
+import "./style/addproject.scss";
 const Addproject = ({ Modal }) => {
   return (
-    <div className="project" id="newProject" onClick={() => Modal()}>
-      <img src="/images/new.png" alt="" />
-      <div className="footerprojectNew">
-        <p>New Note</p>
-      </div>
+    <div className="addproject" onClick={() => Modal()}>
+      <NoteAddIcon className="material-icons" color="primary" />
+      <p>New Note</p>
     </div>
   );
 };

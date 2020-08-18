@@ -1,0 +1,71 @@
+@import "../../styling/utility";
+
+.project {
+  background-color: $mainWhite;
+  box-shadow: 5px 5px 20px #0000003e;
+  width: 10em;
+  height: 10em;
+  overflow-wrap: break-word;
+  padding: 0.2em 1em;
+  overflow: hidden;
+  position: relative;
+
+  &:hover {
+    width: 9.5em;
+    height: 9.5em;
+    box-shadow: 10px 10px 10px #0000003e;
+  }
+
+  h3 {
+    margin: 1em 0;
+    height: 10%;
+    overflow: hidden;
+    font-size: 0.7rem;
+    color: $mainGreen;
+  }
+  p {
+    height: 48%;
+    overflow: hidden;
+    font-size: 0.6rem;
+  }
+
+  &-footerproject {
+    position: absolute;
+    bottom: 1em;
+    p {
+      margin: 0;
+      font-weight: 600;
+      font-size: 0.5rem;
+    }
+    #footerword {
+      font-weight: 300;
+    }
+  }
+
+  &-del {
+    width: 30%;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    position: absolute;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    right: 0;
+    bottom: 15px;
+    margin-top: 1em;
+    transform: translateX(150px);
+    transition: ease-in-out 1s;
+    cursor: pointer;
+
+    .material-icons {
+      font-size: 28px;
+      position: relative;
+      bottom: -6px;
+    }
+  }
+  &:hover > #del {
+    transform: translateX(0);
+  }
+}

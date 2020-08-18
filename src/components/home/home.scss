@@ -1,0 +1,17 @@
+@import "../styling/utility";
+
+.home {
+  padding-top: 7vh;
+  @include flex(center, center, column);
+
+  img {
+    margin-top: 8vh;
+    width: 70%;
+  }
+
+  h1 {
+    letter-spacing: 0.1em;
+    font-size: 3rem;
+    color: $secGrey;
+  }
+}

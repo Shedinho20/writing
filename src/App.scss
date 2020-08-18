@@ -1,0 +1,80 @@
+@import "./components/styling/utility";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.loaderEditior {
+  height: 100vh;
+  width: 65vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: whitesmoke;
+}
+#link {
+  text-decoration: none;
+  color: $textGrey;
+}
+
+.writingContent {
+  margin-left: 35vw;
+  width: 65vw;
+}
+
+img {
+  width: 100%;
+}
+.active {
+  color: $mainWhite !important;
+}
+.noNote {
+  width: 100%;
+  padding: 40vh 0;
+  text-align: center;
+}
+.redirect {
+  color: $mainGreen !important;
+  font-weight: 900;
+}
+.noNote h4 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+.addNewNote {
+  padding: 5em;
+}
+
+.noAccountLost {
+  font-size: 0.7rem;
+  color: $mainGreen;
+  cursor: pointer;
+}
+
+.noAccountLogin {
+  color: $mainPop !important;
+}
+
+.emailLogin {
+  margin-bottom: 0 !important;
+}
+.lazyLoader {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 700px) {
+  html {
+    font-size: 10px;
+  }
+}
