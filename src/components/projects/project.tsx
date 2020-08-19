@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteNote } from "../../data/action/projectAction";
+import { deleteNote } from "../../data/action/project";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import "./style/project.scss";
 export interface Props {}
 
 const Project = ({ project, delNote }) => {
@@ -12,14 +14,14 @@ const Project = ({ project, delNote }) => {
     <div className="project">
       <Link to={"/editor/" + project.id} id="link">
         <h3>{title(project.title)}</h3>
-        <p className="body">{body(project.body).sentence}</p>
-        <div className="footerproject">
+        <p>{body(project.body).sentence}</p>
+        <div className="project-footerproject">
           <p id="footerword">{body(project.body).len} words</p>
           <p>{moment(project.createdAt.toDate()).calendar()}</p>
         </div>
       </Link>
-      <div id="del" onClick={() => delNote(project.id)}>
-        <h5>Delete</h5>
+      <div className="project-del" id="del" onClick={() => delNote(project.id)}>
+        <DeleteForeverIcon className="material-icons" />
       </div>
     </div>
   );

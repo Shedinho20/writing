@@ -1,0 +1,29 @@
+@import "../../styling/utility";
+@import "../../styling/form";
+
+.formsign {
+  @include flex(center, center, column);
+  &-body {
+    @include form-body(3em, 10vh);
+    input {
+      margin: 1em 0;
+      padding: 1em 0.5em;
+      width: 250px;
+      border: solid $mainPop 1px;
+    }
+    .link {
+      color: $mainPop !important;
+      padding-left: 0.3em;
+    }
+    p {
+      margin-top: 0.6em;
+      font-size: 0.8rem;
+      color: $textGrey;
+    }
+    h2 {
+      font-size: 3rem;
+      color: $mainPop;
+      margin-bottom: 0.2em;
+    }
+  }
+}

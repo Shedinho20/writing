@@ -1,0 +1,51 @@
+@import "../styling/utility";
+
+.account {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 7em 0;
+
+  .userIn {
+    border: solid 6px $textGrey;
+    background-color: $secGrey;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    height: 100px;
+    margin-right: 0.6em;
+    padding: 1em;
+    border-radius: 100%;
+    color: $mainWhite;
+    font-size: 2.5rem;
+    margin-bottom: 0.4em;
+  }
+
+  h1 {
+    color: $textGrey;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    margin: 1em 0;
+  }
+  h3 {
+    color: $textGrey;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  h4 {
+    color: $textGrey;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin: 0.6em 0;
+  }
+  h5 {
+    color: $textGrey;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.6rem;
+  }
+}

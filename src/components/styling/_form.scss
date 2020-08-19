@@ -1,0 +1,12 @@
+@mixin form-body($padding, $margin-top) {
+  @include flex(center, center, column);
+  padding: $padding;
+  position: relative;
+  margin-top: $margin-top;
+  background-color: $mainWhite;
+  box-shadow: 20px 10px 40px #0000003e;
+
+  &:hover {
+    box-shadow: 60px 20px 100px #0000003e;
+  }
+}

@@ -1,0 +1,26 @@
+@import "../../styling/utility";
+@import "../../styling/form";
+
+.addproject {
+  background-color: $mainWhite;
+  box-shadow: 5px 5px 20px #0000003e;
+  width: 10em;
+  height: 10em;
+  padding: 0.2em 1em;
+  overflow: hidden;
+  @include flex(center, center, column);
+  cursor: pointer;
+
+  p {
+    margin: 1em 0;
+  }
+
+  &:hover {
+    width: 9.5em;
+    height: 9.5em;
+    box-shadow: 10px 10px 10px #0000003e;
+  }
+  .material-icons {
+    font-size: 40px;
+  }
+}

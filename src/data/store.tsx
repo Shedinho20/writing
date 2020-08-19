@@ -1,7 +1,7 @@
 import thunk from "redux-thunk";
 import { createStore, compose, applyMiddleware } from "redux";
 import { reduxFirestore, getFirestore } from "redux-firestore";
-import { RootReducer } from "./reducer/rootReducer";
+import { RootReducer } from "./reducer/root";
 import { getFirebase } from "react-redux-firebase";
 import firebase from "./fbConfig";
 

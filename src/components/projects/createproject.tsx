@@ -1,43 +1,62 @@
 import * as React from "react";
-import { CreatprojectAction, Modalclose } from "../../data/action/projectAction";
+import { CreatprojectAction, Modalclose } from "../../data/action/project";
 import { connect } from "react-redux";
 import { Project } from "../../interface";
+import Loader from "react-loader-spinner";
+import { motion, AnimatePresence } from "framer-motion";
+import { containerCreateProject } from "../motion";
+import Mybutton from "../MUI/button";
+import "./style/createproject.scss";
 
 interface Props {
   createProject: (project: Project) => {};
   Modal: () => void;
+  auth: boolean;
 }
 
 class Createproject extends React.Component<Props> {
   state = {
     title: "",
     body: "",
+    updated: true,
   };
 
   handleSubmit = (e: any) => {
     e.preventDefault();
+    this.setState({ updated: !this.state.updated });
     this.props.createProject(this.state);
   };
 
   handleChange = (e: any) => {
     this.setState({ [e.target.id]: e.target.value });
   };
+  note = () => (
+    <>
+      <div className="cancle" onClick={() => this.props.Modal()}>
+        X
+      </div>
+      <h2>ADD NOTE</h2>
+      <input type="text" id="title" placeholder="Title" onChange={this.handleChange} required />
+      <Mybutton name="Add" type="submit" />
+    </>
+  );
   render() {
     return (
-      <div className="modal">
-        <div className="form">
-          <form id="form-login" onSubmit={this.handleSubmit}>
-            <div className="cancle" onClick={() => this.props.Modal()}>
-              X
-            </div>
-            <h2>ADD NOTE</h2>
-            <input type="text" id="title" placeholder="Title" onChange={this.handleChange} required />
-            <button className="btn" id="btn-login">
-              ADD
-            </button>
-          </form>
-        </div>
-      </div>
+      <AnimatePresence>
+        <motion.div variants={containerCreateProject} initial="hidden" animate="visible" className="modal">
+          <div className="form">
+            <form className="form-body" onSubmit={this.handleSubmit}>
+              {this.state.updated ? (
+                this.note()
+              ) : (
+                <div className="addNewNote">
+                  <Loader type="Oval" color="#32343a" height={50} width={50} timeout={30000} />
+                </div>
+              )}
+            </form>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     );
   }
 }
@@ -47,5 +66,11 @@ const mapDispatchToProps = (dispatch) => {
     Modal: () => dispatch(Modalclose()),
   };
 };
-
-export default connect(null, mapDispatchToProps)(Createproject);
+const mapStateToProps = (state) => {
+  const aut = state.firebase.auth;
+  const auth = aut ? aut.emailVerified : null;
+  return {
+    auth,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Createproject);

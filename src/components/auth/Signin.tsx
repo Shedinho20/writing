@@ -1,8 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { signUp } from "../../data/action/projectAction";
-import { Redirect } from "react-router-dom";
-
+import { signUp } from "../../data/action/project";
+import { Redirect, Link } from "react-router-dom";
+import { container } from "../motion";
+import { motion } from "framer-motion";
+import Mybutton from "../MUI/button";
+import "./style/signin.scss";
 interface Props {
   signNewUser: (any) => void;
   auth: any;
@@ -27,22 +30,40 @@ class Signin extends React.Component<Props> {
   render() {
     const { auth, authError } = this.props;
 
-    // if (auth.uid) return <Redirect to="/Projectlist" />;
+    if (auth.uid) return <Redirect to="/Projectlist" />;
 
     return (
-      <div className="form">
-        <form id="form-sigin" onSubmit={this.handleSubmit}>
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        exit={{ opacity: 0, transition: { delay: 0.25, duration: 0.25 } }}
+        className="formsign"
+      >
+        <form className="formsign-body" onSubmit={this.handleSubmit}>
           <h2>JOIN</h2>
+          <p>
+            Have an account?
+            <Link to="/login" id="link" className="link">
+              Login
+            </Link>
+          </p>
           <input type="text" id="firstName" placeholder="First Name" onChange={this.handleChange} required />
-          <input type="text" id="Surname" placeholder="Name" onChange={this.handleChange} required />
+          <input type="text" id="Surname" placeholder="Surname" onChange={this.handleChange} required />
           <input type="email" id="email" placeholder="E-mail" onChange={this.handleChange} required />
-          <input type="password" id="password" placeholder="Password" onChange={this.handleChange} required />
-          <button className="btn" id="btn-join">
-            Join
-          </button>
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            onChange={this.handleChange}
+            minLength={8}
+            required
+          />
+          <Mybutton name="Join" type="submit" color="primary" />
+
           {authError ? <p style={{ color: "red", marginTop: "2em", fontSize: "0.5rem" }}>{authError}</p> : null}
         </form>
-      </div>
+      </motion.div>
     );
   }
 }

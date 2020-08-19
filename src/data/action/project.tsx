@@ -11,18 +11,21 @@ import {
   DELETE,
   NOTEUPDATED,
   Action,
+  RESETEMAILSENT,
+  ERRORESETEMAILSENT,
+  REMOVEMESSAGE,
+  NODELETE,
 } from "./constant";
-import { Project, EditorState, credentailsLogin } from "../../interface";
+import { Project, credentailsLogin } from "../../interface";
 import { Dispatch } from "react";
 import uuid from "react-uuid";
+import { NewNote } from "../../components/editor/editor";
 
 export const CreatprojectAction = (project: Project) => {
-  return async (dispact: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
+  return async (dispact: Dispatch<Action>, getState: any, { getFirestore }) => {
     const firestore = getFirestore();
-    // const firebase = getFirebase();
-    // const details = getState().firebase.profile;
     const auth = getState().firebase.auth.uid;
-
+    console.log(getFirestore);
     try {
       const key = uuid();
       const note = {
@@ -70,7 +73,7 @@ export const authAction = (credentails: credentailsLogin) => {
     } catch (error) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: error.message,
+        payload: "The password or email is invalid.",
       });
     }
   };
@@ -82,6 +85,7 @@ export const signUp = (newUser) => {
     const firestore = getFirestore();
     try {
       const res = await firebase.auth().createUserWithEmailAndPassword(newUser.email, newUser.password);
+      await firebase.auth().currentUser.sendEmailVerification();
       await firestore
         .collection("users")
         .doc(res.user.uid)
@@ -93,6 +97,7 @@ export const signUp = (newUser) => {
           friends: null,
           notes: [],
         });
+
       dispatch({
         type: SIGN_SUCESS,
       });
@@ -118,31 +123,90 @@ export const signOut = () => {
 };
 
 export const deleteNote = (id: string | number) => {
-  return async (dispatch: Dispatch<Action>, getstate: any, { getFirebase, getFirestore }: any) => {
-    const firestore = getFirestore();
-    try {
-      await firestore.collection("projects").doc(id).delete();
-      dispatch({
-        type: DELETE,
-        payload: id,
+  // eslint-disable-next-line no-restricted-globals
+  if (confirm("Are you sure you want to delete this note")) {
+    return async (dispatch: Dispatch<Action>, getState: any, { getFirebase, getFirestore }: any) => {
+      const firestore = getFirestore();
+      const firebase = getFirebase();
+      const auth = getState().firebase.auth.uid;
+      try {
+        await firestore
+          .collection("users")
+          .doc(auth)
+          .update({
+            [`notes.${id}`]: firebase.firestore.FieldValue.delete(),
+          });
+
+        dispatch({
+          type: DELETE,
+          payload: id,
+        });
+      } catch (error) {}
+    };
+  } else {
+    return (dispact) => {
+      dispact({
+        type: NODELETE,
       });
-    } catch (error) {}
-  };
+    };
+  }
 };
 
-export const updateNote = (user: EditorState) => {
-  const { projetctID, title, body } = user;
-  return async (dispatch: Dispatch<Action>, getstate: any, { getFirestore }: any) => {
+export const updateNote = (user: NewNote) => {
+  const { projetctID, title, body, userID } = user;
+  return async (dispatch: Dispatch<Action>, getState, { getFirestore }: any) => {
     const firestore = getFirestore();
     try {
-      await firestore.collection("projects").doc(projetctID).update({
+      const note = {
         title,
         body,
-      });
+        createdAt: new Date(),
+        id: projetctID,
+      };
+      await firestore
+        .collection("users")
+        .doc(userID)
+        .update({
+          [`notes.${projetctID}`]: note,
+        });
       dispatch({
         type: NOTEUPDATED,
         payload: user,
       });
     } catch (error) {}
+  };
+};
+
+export const resetEmail = (email) => {
+  return async (dispatch: Dispatch<Action>, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+
+    try {
+      await firebase.auth().sendPasswordResetEmail(email);
+      dispatch({
+        type: RESETEMAILSENT,
+        payload: "Reset link sent to your email",
+      });
+    } catch (error) {
+      if (error.code === "auth/too-many-requests") {
+        dispatch({
+          type: ERRORESETEMAILSENT,
+          payload: "Account blocked. Try again later.",
+        });
+      } else {
+        dispatch({
+          type: ERRORESETEMAILSENT,
+          payload: "Please enter a correct email address",
+        });
+      }
+    }
+  };
+};
+
+export const removeMessage = () => {
+  return (dispact) => {
+    dispact({
+      type: REMOVEMESSAGE,
+    });
   };
 };

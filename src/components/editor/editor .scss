@@ -1,0 +1,16 @@
+@import "../styling/utility";
+
+.editor {
+  &-notepad {
+    height: 90vh;
+  }
+  .titleeditor {
+    height: 10vh;
+    width: 100%;
+    background-color: whitesmoke;
+    padding: 0 0.5em;
+    font-size: 2rem;
+    color: $textGrey;
+    border: none;
+  }
+}
