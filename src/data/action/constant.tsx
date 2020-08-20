@@ -15,6 +15,9 @@ export const NOTEUPDATED = "NOTEUPDATED";
 export const RESETEMAILSENT = "RESETEMAILSENT";
 export const ERRORESETEMAILSENT = "ERRORESETEMAILSENT";
 export const REMOVEMESSAGE = "REMOVEMESSAGE";
+export const NAVMOBILE = "NAVMOBILE";
+export const NAVCLASSOPEN = "NAVCLASSOPEN";
+export const NAVCLASSCLOSE = "NAVCLASSCLOSE";
 
 interface CREATPROJECT {
   type: typeof CREATPROJECT;
@@ -76,6 +79,18 @@ interface NODELETE {
   type: typeof NODELETE;
   payload?: any;
 }
+interface NAVMOBILE {
+  type: typeof NAVMOBILE;
+  payload?: any;
+}
+interface NAVCLASSOPEN {
+  type: typeof NAVCLASSOPEN;
+  payload?: any;
+}
+interface NAVCLASSCLOSE {
+  type: typeof NAVCLASSCLOSE;
+  payload?: any;
+}
 
 export type ProjectReducer =
   | CREATPROJECT
@@ -85,7 +100,10 @@ export type ProjectReducer =
   | DELETE
   | NOTEUPDATED
   | REMOVEMESSAGE
-  | NODELETE;
+  | NODELETE
+  | NAVMOBILE
+  | NAVCLASSOPEN
+  | NAVCLASSCLOSE;
 export type Auth =
   | LOGIN_FAIL
   | LOGIN_SUCCESS

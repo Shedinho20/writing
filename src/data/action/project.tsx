@@ -15,11 +15,15 @@ import {
   ERRORESETEMAILSENT,
   REMOVEMESSAGE,
   NODELETE,
+  NAVMOBILE,
+  NAVCLASSOPEN,
+  NAVCLASSCLOSE,
 } from "./constant";
 import { Project, credentailsLogin } from "../../interface";
 import { Dispatch } from "react";
 import uuid from "react-uuid";
 import { NewNote } from "../../components/editor/editor";
+import nav from "../../components/navBar/nav";
 
 export const CreatprojectAction = (project: Project) => {
   return async (dispact: Dispatch<Action>, getState: any, { getFirestore }) => {
@@ -208,5 +212,27 @@ export const removeMessage = () => {
     dispact({
       type: REMOVEMESSAGE,
     });
+  };
+};
+export const navMobile = () => {
+  return (dispact) => {
+    dispact({
+      type: NAVMOBILE,
+    });
+  };
+};
+export const navClass = () => {
+  return (dispact, getState) => {
+    const navopen = getState().projectData.navmob;
+    console.log(getState().projectData);
+    if (navopen) {
+      dispact({
+        type: NAVCLASSOPEN,
+      });
+    } else {
+      dispact({
+        type: NAVCLASSCLOSE,
+      });
+    }
   };
 };

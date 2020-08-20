@@ -8,6 +8,7 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
+
   .navInner {
     @include flex(flex-start, none, column);
     img {
@@ -32,6 +33,75 @@
         font-size: 1rem;
         margin-left: 0.8em;
       }
+    }
+  }
+}
+
+.navmob {
+  display: none;
+}
+.navmobtn {
+  display: none;
+}
+
+@media (max-width: 1050px) {
+  .nav {
+    display: none;
+  }
+  .navmob {
+    background-color: $mainGrey;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    .navInner {
+      padding-bottom: 20em;
+      @include flex(center, space-between, column);
+    }
+  }
+
+  .navmobtn {
+    background-color: $mainGrey;
+    height: 100vh;
+    width: 15vw;
+    position: fixed;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 5em 0;
+    z-index: 5;
+    .menu {
+      cursor: pointer;
+      .menustyle {
+        height: 3px;
+        width: 30px;
+        background-color: $mainGreen;
+        margin: 0.7em 0;
+        border: none;
+        flex: 1;
+        transition: 0.2s ease-in-out;
+      }
+    }
+    .material-icons {
+      font-size: 28px;
+      bottom: 0px;
+    }
+
+    .menu2 {
+      transform: translate(20px);
+      background-color: $mainPop !important;
+    }
+    .menu1,
+    .menu3 {
+      transform: translate(-10px);
+      background-color: $mainPop !important;
     }
   }
 }
