@@ -5,8 +5,10 @@ import { connect } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 
 import Navbar from "./components/navBar/nav";
+import Navbarmob from "./components/navBar/navMob";
 // import Home from "./components/home/home";
 import Loaderspinner from "./components/loader";
+import Navbarmobtn from "./components/navBar/navmobBTN";
 
 const Signin = React.lazy(() => import("./components/auth/Signin"));
 const Home = React.lazy(() => import("./components/home/home"));
@@ -16,12 +18,14 @@ const Projectlist = React.lazy(() => import("./components/projects/projecList"))
 const Editor = React.lazy(() => import("./components/editor/editor"));
 const Createproject = React.lazy(() => import("./components/projects/createproject"));
 const Contactus = React.lazy(() => import("./components/contact/contact"));
-function App({ addNote, isLoaded, auth }) {
+function App({ addNote, isLoaded, auth, navmob }) {
   const location = useLocation();
   if (isLoaded) {
     return (
       <React.Fragment>
         <Navbar />
+        <Navbarmobtn />
+        {navmob ? <Navbarmob /> : null}
         {addNote ? (
           <Suspense fallback={<Loaderspinner />}>
             <Createproject />
@@ -53,6 +57,7 @@ const mapStateToProps = (state: any) => {
     addNote: state.projectData.addNote,
     isLoaded: state.firebase.auth["isLoaded"],
     auth: state.firebase.auth,
+    navmob: state.projectData.navmob,
   };
 };
 export default connect(mapStateToProps)(App);

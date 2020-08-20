@@ -21,7 +21,6 @@ const Navbar = ({ auth }) => {
       <div className="navInner">
         <img src="/images/logo.png" alt="logo" />
         <div className="signOutIn">{links}</div>
-
         <Link to={`/contact`} id="link" style={ask} activeClassName="active" className="link">
           <LiveHelpIcon className="material-icons" />
           <h3>Ask a question</h3>
